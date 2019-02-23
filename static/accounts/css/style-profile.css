@@ -1,0 +1,32 @@
+
+.book-info-img{
+    height: 165px;
+}
+
+.ui.segment.back-grey {
+    background-color: #f2f2f2 !important;
+}
+
+.ui.grid > .row > img, .ui.grid > .row > .column > img {
+    max-width: 55%;
+}
+.ui.grid .row + .ui.divider {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.con-margin{
+    /*padding-bottom: 91px;*/
+    /*position: relative;*/
+    /*top: 18% !important;*/
+    margin-top: 5rem !important;
+}
+
+.history-margin{
+    margin-bottom: 14px !important;
+}
+
+
+.ui.progress:last-child {
+    margin: 1.5em 0em 1.5em !important;
+}

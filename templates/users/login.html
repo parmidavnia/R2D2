@@ -1,0 +1,61 @@
+{% extends 'r2d2/base.html' %}
+
+
+{% block title %}
+    <title>نشانه - ورود</title>
+{% endblock %}
+
+{% block styles %}
+    {% load staticfiles %}
+    <link rel="stylesheet" href="{% static 'accounts/css/style-login.css' %}"/>
+{% endblock %}
+
+{% block content %}
+
+    <div class="ui container login-margin">
+        <div class="ui one column grid login-grey">
+            <div class="column">
+                <h2>ورود</h2>
+                <div class="ui divider"></div>
+
+                <div class="ui center aligned grid">
+                    {% if login %}
+                        <div class="eight wide center alined column">
+                            <span>با موفقیت وارد شدید.</span>
+                        </div>
+                    {% else %}
+                        <div class="ten wide column">
+                            <form class="ui form" method="post">
+                                {% csrf_token %}
+                                <div class="ui center aligned grid">
+                                    <div class="row">
+                                        <div class="six wide right aligned column">
+                                            {{ form.as_p }}
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="sixteen wide column">
+                                            <input class="ui orange button" type="submit" value="وارد شوید"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+{% endblock %}
+
+{% block scripts %}
+    <script>
+
+        $(function () {
+            $('.ui.checkbox')
+                .checkbox()
+        });
+    </script>
+{% endblock %}

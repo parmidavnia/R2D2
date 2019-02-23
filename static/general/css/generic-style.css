@@ -1,0 +1,244 @@
+
+@font-face {
+    font-family: IRANSans;
+    font-style: normal;
+    font-weight: bold;
+    src: url('../fonts/eot/IRANSansWeb_Bold.eot');
+    src: url('../fonts/eot/IRANSansWeb_Bold.eot?#iefix') format('embedded-opentype'),  /* IE6-8 */
+    url('../fonts/woff2/IRANSansWeb_Bold.woff2') format('woff2'),  /* FF39+,Chrome36+, Opera24+*/
+    url('../fonts/woff/IRANSansWeb_Bold.woff') format('woff'),  /* FF3.6+, IE9, Chrome6+, Saf5.1+*/
+    url('../fonts/ttf/IRANSansWeb_Bold.ttf') format('truetype');
+}
+@font-face {
+    font-family: IRANSans;
+    font-style: normal;
+    font-weight: 500;
+    src: url('../fonts/eot/IRANSansWeb_Medium.eot');
+    src: url('../fonts/eot/IRANSansWeb_Medium.eot?#iefix') format('embedded-opentype'),  /* IE6-8 */
+    url('../fonts/woff2/IRANSansWeb_Medium.woff2') format('woff2'),  /* FF39+,Chrome36+, Opera24+*/
+    url('../fonts/woff/IRANSansWeb_Medium.woff') format('woff'),  /* FF3.6+, IE9, Chrome6+, Saf5.1+*/
+    url('../fonts/ttf/IRANSansWeb_Medium.ttf') format('truetype');
+}
+@font-face {
+    font-family: IRANSans;
+    font-style: normal;
+    font-weight: 300;
+    src: url('../fonts/eot/IRANSansWeb_Light.eot');
+    src: url('../fonts/eot/IRANSansWeb_Light.eot?#iefix') format('embedded-opentype'),  /* IE6-8 */
+    url('../fonts/woff2/IRANSansWeb_Light.woff2') format('woff2'),  /* FF39+,Chrome36+, Opera24+*/
+    url('../fonts/woff/IRANSansWeb_Light.woff') format('woff'),  /* FF3.6+, IE9, Chrome6+, Saf5.1+*/
+    url('../fonts/ttf/IRANSansWeb_Light.ttf') format('truetype');
+}
+@font-face {
+    font-family: IRANSans;
+    font-style: normal;
+    font-weight: 200;
+    src: url('../fonts/eot/IRANSansWeb_UltraLight.eot');
+    src: url('../fonts/eot/IRANSansWeb_UltraLight.eot?#iefix') format('embedded-opentype'),  /* IE6-8 */
+    url('../fonts/woff2/IRANSansWeb_UltraLight.woff2') format('woff2'),  /* FF39+,Chrome36+, Opera24+*/
+    url('../fonts/woff/IRANSansWeb_UltraLight.woff') format('woff'),  /* FF3.6+, IE9, Chrome6+, Saf5.1+*/
+    url('../fonts/ttf/IRANSansWeb_UltraLight.ttf') format('truetype');
+}
+@font-face {
+    font-family: IRANSans;
+    font-style: normal;
+    font-weight: normal;
+    src: url('../fonts/eot/IRANSansWeb.eot');
+    src: url('../fonts/eot/IRANSansWeb.eot?#iefix') format('embedded-opentype'), /* IE6-8 */ url('../fonts/woff2/IRANSansWeb.woff2') format('woff2'), /* FF39+,Chrome36+, Opera24+*/ url('../fonts/woff/IRANSansWeb.woff') format('woff'), /* FF3.6+, IE9, Chrome6+, Saf5.1+*/ url('../fonts/ttf/IRANSansWeb.ttf') format('truetype');
+}
+
+.font-normal {
+    font-weight: normal !important;
+}
+
+.font-ultra-light {
+    font-weight: 200 !important;
+}
+
+.font-light {
+    font-weight: 300 !important;
+}
+
+.font-medium {
+    font-weight: 500 !important;
+}
+
+.font-bold {
+    font-weight: bold !important;
+}
+
+body {
+    font-family: IRANSans !important;
+    font-weight: 300;
+    direction: rtl;
+    height: 100%;
+}
+
+html{
+    position:relative;
+    height: 100%;
+}
+/* header */
+.search-tab{
+    min-width: 35rem;
+    border-radius: 5px !important;
+}
+.row-margin1 {
+    margin-top: 15px;
+    margin-bottom: 15px !important;
+}
+.row-margin2{
+    padding-top: 0 !important;
+    margin-bottom: 15px;
+}
+.no-borders{
+    border-radius: 0 !important;
+    border : 0 !important;
+}
+.menu2-padding{
+    padding-right: 14%;
+    /*margin-bottom: 60px !important;*/
+}
+.back-dark-grey{
+    color : dimgrey;
+}
+.footer {
+    background-color: #F2F2F2 !important;
+    position: fixed;
+    height: 195px;
+    /*margin-top: 5em !important;*/
+    overflow: hidden;
+}
+.footer2{
+    background-color: #2c2c2c !important;
+    position: fixed;
+    height: 80px;
+    /*margin-top: 5em !important;*/
+    overflow: hidden;
+}
+.page-wrap{
+    height: 87%;
+    /*margin-bottom: -275px;*/
+}
+.page-wrap:after {
+    content: "";
+    display: block;
+}
+.site-footer, .page-wrap:after {
+    height: 275px;
+}
+
+.copyright {
+    color: white !important;
+    transform: translate(0, 120%);
+}
+.ui.menu .item {
+    padding-left: 2em !important;
+    padding-right: 2em !important;
+    /*line-height: 3;*/
+    min-height: 2.85714286em;
+}
+.ui.menu .item > i.icon {
+    opacity: 0.9;
+    font-size: 1.5em;
+    margin: 0 0.35714286em 0 1em;
+
+}
+.logo{
+    transform: translate(-10%,70%);
+}
+.logo-img{
+    width : 65% !important;
+    height:auto;
+    transform: translate(0,10%);
+}
+.header1{
+    position: relative;
+}
+
+.back-grey-menu {
+    background-color: #f2f2f2 !important;
+}
+.ui.animated.list:not(.horizontal) > .item:hover {
+    padding-right: 1em;
+    transition: 0.3s;
+    color: #E44E1B;
+    cursor: pointer ;
+}
+
+.ui.animated.list.horizontal > .item:hover {
+    color: #E44E1B;
+    cursor: hand !important;
+}
+
+a {
+    color: orange;
+    text-decoration: none;
+}
+a:hover {
+    color: orangered;
+    text-decoration: none;
+}
+.back-grey-menu {
+    background-color: #f2f2f2 !important;
+}
+
+/*********** buttons *************/
+.ui.orange.buttons .button, .ui.orange.button {
+    background-color: #ff944d;
+}
+.ui.inverted.orange.buttons .button:hover, .ui.inverted.orange.button:hover {
+    background-color: #ff944d;
+}
+
+.ui.inverted.grey.buttons .button:hover, .ui.inverted.grey.button:hover, .ui.inverted.grey.buttons .button:focus, .ui.inverted.grey.button:focus, .ui.inverted.grey.buttons .button.active, .ui.inverted.grey.button.active, .ui.inverted.grey.buttons .button:active, .ui.inverted.grey.button:active {
+    color: white !important;
+}
+.ui.orange.buttons .button:hover, .ui.orange.button:hover {
+    color: white !important;
+}
+
+.no-padding {
+    padding: 0 !important;
+}
+
+.no-margin {
+    margin: 0 !important;
+}
+.ui.items > .item > .image > img {
+    width : 65% !important;
+}
+.ui.items > .item > .image:not(.ui) {
+    width: 70px;
+}
+.ui.items > .item > .image:not(.ui) {
+    width: 120px !important;
+}
+.ui.items > .item {
+    margin-bottom: 2em  !important;
+}
+.ui.inverted.grey.buttons .button, .ui.inverted.grey.button {
+    color : grey;
+    font-weight: normal;
+}
+.ui.divider.tab-divider:not(.vertical):not(.horizontal) {
+    border-top: 2px solid rgba(34, 36, 38, 0.15);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    border-bottom-width: 2px;
+    border-bottom-color: rgba(255, 255, 255, 0.0980392);
+}
+.ui.divider.info-divider:not(.vertical):not(.horizontal) {
+    border-top: 2px solid rgba(34, 36, 38, 0.15);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    border-bottom-width: 2px;
+    border-bottom-color: rgba(255, 255, 255, 0.0980392);
+    margin-top : 2rem;
+}
+a {
+    color: orange;
+    text-decoration: none;
+}
+a:hover {
+    color: orangered;
+    text-decoration: none;
+}

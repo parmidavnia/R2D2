@@ -1,0 +1,61 @@
+{% extends 'r2d2/base.html' %}
+
+{% block title %}
+    <title>تگر</title>
+{% endblock %}
+
+
+
+{% block styles %}
+    {% load staticfiles %}
+    <link rel="stylesheet" href="{% static 'ketabkhaar/css/flickity.css' %}" media="screen">
+    <link rel="stylesheet" href="{% static 'ketabkhaar/css/style-index.css' %}"/>
+
+{% endblock %}
+
+
+{% block content %}
+    <div class="ui container centered grey index-margin">
+    <div class="ui center bold aligned" style="font-size: 1.3em; text-align: center">
+        {% if next_page %}
+            <a href="{% url 'tagger:get_all_sentences_history' next_page next_limit %}">صفحه بعد</a>
+        {% endif %}
+        {% if next_page and previous_page %}
+            ,
+        {% endif %}
+        {% if previous_page %}
+            <a href="{% url 'tagger:get_all_sentences_history' previous_page next_limit %}">صفحه قبل</a>
+        {% endif %}
+    </div>
+        <table class="ui celled table">
+          <thead>
+            <tr>
+                <th>کاربر</th>
+                <th>شناسه جمله</th>
+                <th>جمله</th>
+                <th>آی‌پی</th>
+                <th>امتیاز</th>
+            </tr>
+          </thead>
+          <tbody>
+          {% for history in histories %}
+                <tr>
+                  <td data-label="کاربر">
+                      {{ history.userId.id }}
+                  </td>
+                  <td data-label="شناسه جمله">{{ history.sentenceId.id }}</td>
+                  <td data-label="جمله">{{ history.sentenceId.text }}</td>
+                  <td data-label="آی‌پی">{{ history.ip }}</td>
+                  <td data-label="امتیاز">{{ history.polarity }}</td>
+                </tr>
+          {% endfor %}
+          </tbody>
+        </table>
+    </div>
+{% endblock %}
+
+
+{% block scripts %}
+    <script type="text/javascript" src="{% static 'ketabkhaar/js/flickity.pkgd.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'ketabkhaar/js/js-index.js' %}"></script>
+{% endblock %}

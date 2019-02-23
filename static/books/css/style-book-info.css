@@ -1,0 +1,112 @@
+
+.book-info-img{
+    height: 165px;
+}
+
+.ui.animated.list:not(.horizontal) > .item:hover {
+    padding-right: 1em;
+    transition: 0.3s;
+    color: #E44E1B;
+}
+
+.ui.animated.list.horizontal > .item:hover {
+    color: #E44E1B;
+}
+
+.ui.segment.back-grey {
+    background-color: #f2f2f2 !important;
+}
+
+.over-size-profile {
+    height: 25px !important;
+}
+.ui.grid > .row > img, .ui.grid > .row > .column > img {
+    max-width: 55%;
+}
+.ui.grid .row + .ui.divider {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.ui.divider.tab-divider:not(.vertical):not(.horizontal) {
+     border-top: 2px solid rgba(34, 36, 38, 0.15);
+     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+     border-bottom-width: 2px;
+     border-bottom-color: rgba(255, 255, 255, 0.0980392);
+ }
+.ui.divider.info-divider:not(.vertical):not(.horizontal) {
+    border-top: 2px solid rgba(34, 36, 38, 0.15);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    border-bottom-width: 2px;
+    border-bottom-color: rgba(255, 255, 255, 0.0980392);
+    margin-top : 2rem;
+}
+.center-txt{
+    vertical-align: middle !important;
+}
+.center-txt {
+    display: flex !important;
+    align-items: center !important;
+    transform: translate(-15%, 0);
+}
+.fav-button {
+    margin-top : 11px !important;
+}
+.morelink {
+    color : #E44E1B ;
+}
+.shorten-txt {
+    margin-top : 1.5rem;
+}
+
+.ui.cards > .card > .image > img, .ui.card > .image > img {
+    display: block;
+    height: 100% !important;
+    width : 100%;
+    border-radius: 0.3125em 0.3125em 0 0!important;
+    margin: 0 !important;
+}
+.ui.cards > .card, .ui.card {
+    background: white;
+}
+
+.ui.cards > .card > .content > .header:not(.ui), .ui.card > .content > .header:not(.ui) {
+    font-weight: bold;
+    font-size: 1.0em;
+    margin-top: -0.21425em;
+    line-height: 1.2857em;
+}
+.ui.inverted.grey.buttons .button, .ui.inverted.grey.button {
+    color : grey;
+    font-weight: normal;
+}
+.ui.items > .item > .image > img {
+    width : 65% !important;
+}
+.ui.items > .item > .image:not(.ui) {
+    width: 70px;
+}
+.ui.items > .item > .image:not(.ui) {
+    width: 120px !important;
+}
+
+.ui.inverted.grey.buttons .button:hover, .ui.inverted.grey.button:hover, .ui.inverted.grey.buttons .button:focus, .ui.inverted.grey.button:focus, .ui.inverted.grey.buttons .button.active, .ui.inverted.grey.button.active, .ui.inverted.grey.buttons .button:active, .ui.inverted.grey.button:active {
+    color: white;
+}
+.ui.items > .item {
+    margin-bottom: 2em  !important;
+}
+
+.detail-margin {
+    margin-top: 4.5rem;
+    margin-bottom: 4.5rem;
+}
+.ui.modal > .header {
+    font-family: IRANSans !important;
+}
+.ui.modal {
+    text-align: right !important;
+}
+.ui.modal .actions {
+    text-align: left !important;
+}

@@ -1,0 +1,198 @@
+{% extends 'r2d2/base.html' %}
+
+
+{% block title %}
+    <title>حساب کاربری {{ user.username }}</title>
+{% endblock %}
+
+{% block styles %}
+    {% load staticfiles %}
+    <link rel="stylesheet" type="text/css" href="{% static 'accounts/css/style-profile.css' %}"/>
+{% endblock %}
+
+
+{% block content %}
+    <div class="ui container con-margin page-wrap">
+        <div class="ui grid container">
+            <!-- information -->
+            <div class="three wide column right aligned ">
+                {% if user.is_superuser %}
+                                    <h2 class="ui header">مدیر</h2>
+                {% else %}
+                                    <h2 class="ui header">{{ user.first_name}} {{ user.last_name }}</h2>
+                {% endif %}
+                <div class="ui small rounded image center aligned">
+                    <img src="/{{ user.avatar }}">
+                </div>
+                <div class="ui divider " ></div>
+                <div class="ui animated large relaxed link right aligned list">
+{#                    <a class="underline-link item right aligned"#}
+{#                       href="{% url 'accounts:edit_profile' %}">ویرایش مشخصات</a>#}
+                    {% if user.is_superuser %}
+                      <a class="underline-link item right aligned"
+                       href="{% url 'tagger:add_sentence' %}">اضافه کردن جمله</a>
+                        <a class="underline-link item right aligned"
+                       href="{% url 'tagger:get_all_sentences_history' 1 30 %}">تاریخچه تمام امتیازات</a>
+                        <a class="underline-link item right aligned"
+                       href="{% url 'tagger:get_all_sentences' 1 30 %}">وضعیت تمام جمله‌ها</a>
+                    {% else %}
+                        <div class="item right aligned">امتیاز: {{ user.score }}</div>
+                        <div class="item right aligned"> تاریخ ثبت نام: {{ user.registrationDate }}</div>
+                    {% endif %}
+                </div>
+            </div>
+            <!-- tab info -->
+            <div class="thirteen wide column right floating">
+                <div class="ui container">
+                    <div class="ui top attached tabular menu">
+                        {% if user.is_superuser %}
+                            <a id="sentence-history-header" class="active item" data-tab="first">
+                            <span class="tab-title">خلاصه امتیازات کاربران</span>
+                            </a>
+
+                            <a id="sentences-header" class="item" data-tab="second">
+                            <span class="tab-title">خلاصه وضعیت جمله‌ها</span>
+                            </a>
+                        {% else %}
+                            <a id="rating-header" class="active item" data-tab="first">
+                            <span class="tab-title">تاریخچه امتیازها</span>
+                            </a>
+                        {% endif %}
+                    </div>
+                    <!-- first tab -->
+                {% if user.is_superuser %}
+                    <div id="sentence-history-tab" class="ui active bottom attached tab segment back-grey" data-tab="first">
+                        <table class="ui green table">
+                            {% if sentence_histories %}
+                                <thead>
+                                <tr>
+                                    <th class="two wide">شناسه جمله</th>
+                                    <th class="two wide">شناسه کاربر</th>
+                                    <th class="nine wide">جمله</th>
+                                    <th class="two wide">قطبیت</th>
+                                    <th>آی‌پی</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for history in sentence_histories %}
+                                    <tr>
+                                        <td>{{ history.sentenceId.id }}</td>
+                                        <td>{{ hustory.userId.id }}</td>
+                                        <td>{{ history.sentenceId.text }}</td>
+                                        <td>{{ history.polarity }}</td>
+                                        <td>{{ history.ip }}</td>
+                                    </tr>
+                                {% endfor %}
+
+                                </tbody>
+                            {% else %}
+                                <div class="ui center aligned container">
+                                تاکنون کسی امتیازی نداده است
+                                </div>
+                            {% endif %}
+
+                        </table>
+
+                    </div>
+                    <div id="sentences-tab" class="ui bottom attached tab segment back-grey" data-tab="second">
+                        <table class="ui blue table">
+                            {% if sentences %}
+                                <thead>
+                                <tr>
+                                    <th class="one wide">شناسه</th>
+                                    <th class="ten wide">متن</th>
+                                    <th>قطبیت میانگین</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for sentence in sentences %}
+                                    <tr>
+                                        <td>{{ sentence.id }}</td>
+                                        <td>{{ sentence.text }}</td>
+                                        <td>{{ sentence.polarityAvg }}</td>
+                                    </tr>
+                                {% endfor %}
+
+                                </tbody>
+                            {% else %}
+                                <div class="ui center aligned container">
+جمله‌ای وجود ندارد
+                                </div>
+                            {% endif %}
+
+                        </table>
+
+                    </div>
+
+                {% else %}
+                    <div id="rating-tab" class="ui active bottom attached tab segment back-grey" data-tab="first">
+                        <table class="ui red table">
+                            {% if ratings %}
+                                <thead>
+                                <tr><th class="one wide">#</th>
+                                    <th class="nine wide">جمله</th>
+                                    <th class="two wide">قطبیت</th>
+                                    <th>تاریخ</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for rate in ratings %}
+                                    <tr>
+                                        <td>{{ forloop.counter }}</td>
+                                        <td>{{ rate.sentenceId.text }}</td>
+                                        <td>{{ rate.polarity }}</td>
+                                        <td>{{ rate.date }}</td>
+                                    </tr>
+                                {% endfor %}
+
+                                </tbody>
+                            {% else %}
+                                <div class="ui center aligned container">
+                                    تاکنون امتیازی ثبت نکرده‌اید.
+                                </div>
+                            {% endif %}
+
+                        </table>
+
+                    </div>
+                {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+
+{% block scripts %}
+    <script type="text/javascript">
+        $(document).ready(function() {
+            var active_tab = {{ active_tab }};
+            switch (active_tab) {
+                case 1:
+                    $('#rating-header').addClass('active', 'back-grey');
+                    $('#rating-tab').addClass('active');
+                    break;
+                case 2:
+                    $('#sentence-history-header').addClass('active', 'back-grey');
+                    $('#sentence-history-tab').addClass('active');
+                    break;
+                case 3:
+                    $('#sentences-header').addClass('active', 'back-grey');
+                    $('#sentences-tab').addClass('active');
+                    break;
+                case 4:
+                    $('#ordershistory-header').addClass('active', 'back-grey');
+                    $('#ordershistory-tab').addClass('active');
+                    break;
+                default:
+                    $('#favlist-header').addClass('active', 'back-grey');
+                    $('#favlist-tab').addClass('active');
+            }
+        });
+
+    </script>
+    <script type="text/javascript" src="{% static 'accounts/js/profiles.js' %}"></script>
+{% endblock %}
+
+

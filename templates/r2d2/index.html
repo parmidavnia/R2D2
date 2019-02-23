@@ -1,0 +1,167 @@
+{% extends 'ketabkhaar/base.html' %}
+
+{% block title %}
+    <title>تگر</title>
+{% endblock %}
+
+
+
+{% block styles %}
+    {% load staticfiles %}
+    <link rel="stylesheet" href="{% static 'ketabkhaar/css/flickity.css' %}" media="screen">
+    <link rel="stylesheet" href="{% static 'ketabkhaar/css/style-index.css' %}"/>
+
+{% endblock %}
+
+
+{% block content %}
+    <div class="ui container index-margin">
+
+        <div class="ui grid container">
+            <div class="five wide column">
+                <div class="ui grid">
+                    <div class="row login-required-div">
+                        <div class="sixteen wide column">
+                            <div class="ui grid">
+                                <div class="row">
+                                    <div class="sixteen wide column">
+                                        <div class="ui header">
+                                            <h3>پیشنهاد امروز ما</h3>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="six wide column">
+                                        <div class="ui image">
+                                            <img src="{% static 'site-media/photos/books/516GyHY9p6L.jpg' %}"/>
+                                        </div>
+                                    </div>
+                                    <div class="ten wide column">
+                                        <div class="ui grid">
+                                            <div class="row day-recom-row-title">
+                                                <h4>ارباب حلقه‌ها</h4>
+                                            </div>
+                                            <div class="row day-recom-off-row-author">
+                                                <span>تالکین</span>
+                                            </div>
+                                            <div class="row day-recom-off-row-desc">
+                                                <span>میرا تصویرگر جامعه ای است که "فردیت" هیچ معنایی در آن ندارد. به زبان جامعه شناختی، میرا از جامعه ای سخن می گوید کهاصالت با جمع است نه فرد. در چنین جامعه ای حتی اگر "فردیتی" را بتوان متصور بود، فردیتی است که تجلی ارزشهای جمعی جامعه است. در چنین جامعه ای عرصه ...</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="ui divider tab-divider"></div>
+
+                    <div class="row login-required-div">
+                        <div class="sixteen wide column">
+                            <div class="ui grid">
+                                <div class="row">
+                                    <div class="sixteen wide column">
+                                        <!--TODO this should be a link itself-->
+                                        <div class="ui header">
+                                            <h3>علاقمندی‌ها</h3>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="eight wide center aligned column">
+                                        <div class="ui image">
+                                            <img src="{% static 'site-media/photos/books/516GyHY9p6L.jpg' %}"/>
+                                        </div>
+                                    </div>
+
+                                    <div class="eight wide center aligned column">
+                                        <div class="ui image">
+                                            <img src="{% static 'site-media/photos/general/kafka.jpeg' %}"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="ui divider tab-divider"></div>
+
+                </div>
+            </div>
+            <div class="eleven wide column">
+                <div class="ui grid container">
+                    <div class="row">
+                        <div class="sixteen wide column no-padding">
+
+                            <div class="carousel">
+
+                                <div class="carousel-cell"><img src="http://www.hashtagavenue.com/wp-content/uploads/2015/04/fsd.png" alt="orange tree" /></div>
+                                <div class="carousel-cell"><img src="https://www.themarysue.com/wp-content/uploads/2015/10/cursed-child-stage-play-eighth-story.jpg" alt="look-out" /></div>
+                                <div class="carousel-cell"><img src="https://s3.amazonaws.com/prod.assets.thebanner/styles/article-large/s3/article/large/TunedIn_BooksfromtheBanner_large.jpg?itok=F6iZdPZG" alt="One World Trade" /></div>
+                                <div class="carousel-cell"><img src="http://www.tikihumor.com/wp-content/uploads/sites/37/2013/09/Game-fo-Thrones-Banners.png" alt="submerged" /></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row index-section">
+                        <div class="sixteen wide column">
+                            <div class="ui grid back-grey">
+                                <div class="row">
+                                    <div class="sixteen wide column">
+                                        <div class="ui header">
+                                            <h2>{{ title }}</h2>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="sixteen wide column">
+                                        <div class="ui grid container">
+                                            {% for book in books %}
+                                            <div class="four wide column ">
+                                                <div class="ui link special cards">
+                                                    <div class="red card" >
+                                                        <div class="blurring dimmable image">
+                                                            <div class="ui inverted dimmer">
+                                                                <div class="content">
+                                                                    <div class="center">
+                                                                        <div class="ui inverted viewbook button" goto="{% url 'books:book_details' book.id %}">مشاهده</div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <img src="/{{ book.pic.url }}"/>
+                                                        </div>
+                                                        <div class="content">
+                                                            <a class="header" href="/books/1/">{{ book.title }}</a>
+                                                            <div class="meta"> توسط {{ book.author }} </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            {% empty %}
+                                            <div class="row">
+                                                <div class="ui center aligned column">
+                                                    <h3 class="ui header">محتوایی برای نمایش وجود ندارد.</h3>
+                                                </div>
+                                            </div>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+
+{% block scripts %}
+    <script type="text/javascript" src="{% static 'ketabkhaar/js/flickity.pkgd.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'ketabkhaar/js/js-index.js' %}"></script>
+
+{% endblock %}

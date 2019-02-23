@@ -1,0 +1,28 @@
+
+.setting-margin {
+    margin-top: 4rem;
+    margin-bottom :  7rem;
+}
+
+.setting-divider {
+    width: inherit;
+}
+#address-field {
+    width: 90%;
+    padding: 1rem 1rem 0.5rem 1rem;
+    margin: 1rem 0 2rem 0;
+    display: none;
+    border-radius: 0.5rem;
+}
+
+.button-margin {
+    margin-top: 1rem !important;
+}
+.adr-fields {
+    margin: 1.5rem 0  1rem 0 ;
+}
+
+#close-icon {
+    display: none;
+    cursor: pointer;
+}

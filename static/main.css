@@ -1,0 +1,100 @@
+body {
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    background-color: #e4e4e4;
+}
+
+.left {
+    float: left;
+}
+
+.right {
+    float: right;
+}
+
+#navbar {
+    width: 100%;
+    height: 3rem;
+    line-height: 3rem;
+    padding: 1.5rem 0;
+    background-color: #003b6a;
+    box-shadow: 0 0 20px #9e9e9e;
+}
+
+#sentence-box {
+    width: 70%;
+    height: 18rem;
+    margin: 6rem 15% 0 15%;
+    border: dashed 2px #003b6a;
+    border-radius: 10px;
+}
+
+.sentences {
+    width: 100%;
+    height: 8rem;
+    /*background-color: red;*/
+    padding-top: 3rem;
+}
+
+.sentence {
+    width: 70%;
+    margin: 0 15%;
+    text-align: center;
+    /*background-color: yellow;*/
+    height: 6rem;
+    line-height: 6rem;
+    font-size: 1.2rem;
+    color: #00284c;
+}
+
+.comment-box {
+    width: 100%;
+    height: 4rem;
+    line-height: 5rem;
+    padding: 0;
+    /*background-color: blue;*/
+    text-align: center;
+}
+
+.custom-button {
+    width: 10rem;
+    height: 3rem;
+    line-height: 3rem;
+    display: inline-block;
+    border-radius: 3px;
+    background-color: #e4e4e4;
+    text-align: center;
+    vertical-align: middle;
+    padding: 0;
+    box-shadow: 0 0 2px #9e9e9e;
+    cursor: pointer;
+    margin: 0 1rem;
+    color: #00284c;
+}
+
+#score{
+    width: 7rem;
+    background-color: inherit;
+    border-radius: 3px;
+    border: dashed 1px #e4e4e4;
+    color: #e4e4e4;
+
+}
+
+.logo-name {
+    width: 15rem;
+    height: 3rem;
+    line-height: 3rem;
+    display: inline-block;
+    border-radius: 3px;
+    border: dashed 1px #e4e4e4;
+    text-align: center;
+    vertical-align: middle;
+    padding: 0;
+    box-shadow: 0 0 2px #9e9e9e;
+    margin: 0 1rem;
+    color: #e4e4e4;
+
+}

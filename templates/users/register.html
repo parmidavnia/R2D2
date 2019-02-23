@@ -1,0 +1,69 @@
+{% extends 'r2d2/base.html' %}
+
+
+{% block title %}
+    <title>تگر - ثبت نام</title>
+{% endblock %}
+
+{% block styles %}
+    {% load staticfiles %}
+    <link rel="stylesheet" href="{% static 'accounts/css/style-signup.css' %}"/>
+{% endblock %}
+
+{% block content %}
+    <div class="ui container signup-margin">
+        <div class="ui one column grid signup-grey" >
+            <div class="column">
+                {% if register %}
+                    <h2>تکمیل ثبت نام</h2>
+                {% else %}
+                    <h2>ثبت نام</h2>
+                {% endif %}
+                <div class="ui divider"></div>
+                <div class="ui center aligned grid">
+                    {% if register %}
+                        <div class="eight wide center alined column">
+                            <span>ثبت نام با موفقیت انجام شد.</span>
+                        </div>
+                    {% else %}
+                        <div class="eight wide right aligned column">
+                            <form class="ui error form" action="/user/register" method="post">
+                                {% csrf_token %}
+                                {% if error %}
+                                    <div class="ui error message">
+                                        {{ error }}
+                                    </div>
+                                {% endif %}
+                                <div class="ui grid">
+                                    <div class="row">
+                                        <div class="sixteen wide column">
+                                            {{ register_form.as_p }}
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="eight wide right aligned column">
+                                            <input type="submit" value="ثبت نام" class="ui right orange floated button"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    {% endif %}
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    <script>
+        $(function(){
+            $('.ui.checkbox')
+                .checkbox()
+        });
+    </script>
+{% endblock %}
+
+

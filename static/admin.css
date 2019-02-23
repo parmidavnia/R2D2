@@ -1,0 +1,19 @@
+.admin-box {
+    width: 90%;
+    margin: 5rem 5%;
+}
+
+table {
+    width: 100%;
+    border: 2px dashed #003b6a;
+    border-radius: 5px;
+
+}
+
+th, td {
+    /*width: 33%;*/
+    text-align: center;
+    height: 3rem;
+    line-height: 3rem;
+    background-color: white;
+}
