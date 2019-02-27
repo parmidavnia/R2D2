@@ -10,4 +10,5 @@ urlpatterns = [
     url(r'^(?P<sentenceId>[0-9]*)/rate$', views.rate_sentence, name='rate_sentence'),
     url(r'^history/(?P<page>[0-9]*)/(?P<limit>[0-9]*)$', views.get_all_sentences_history, name='get_all_sentences_history'),
     url(r'^(?P<page>[0-9]*)/(?P<limit>[0-9]*)$', views.get_all_sentences, name='get_all_sentences'),
+
 ]
