@@ -6,127 +6,111 @@
     {% block title %} {% endblock %}
 
     {% load static %}
+    <link rel="stylesheet" href="{% static 'general/css/home_style.css' %}"/>
+    {#    <!-- Bootstrap -->#}
+    <link rel="stylesheet" type="text/css" href="{% static 'general/css/bootstrap.min.css' %}"/>
+    {#    <!-- Load Bootstrap RTL theme from RawGit -->#}
+    <link rel="stylesheet" href="//cdn.rawgit.com/morteza/bootstrap-rtl/v3.3.4/dist/css/bootstrap-rtl.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css"/>
+    <!-- Animate CSS-->
+    <link rel="stylesheet" type="text/css" href="static/css/animate.css"/>
+    <link rel="stylesheet" type="text/css" href="static/css/animate.css"/>
+
+
     <link rel="stylesheet" href="{% static 'general/css/semantic/semantic.css' %}"/>
-    <link rel="stylesheet" href="{% static 'general/css/generic-style.css' %}"/>
+{#    <link rel="stylesheet" href="{% static 'general/css/generic-style.css' %}"/>#}
 
     {% block styles %}
     {% endblock %}
 
-    <script type="text/javascript" src="{% static 'general/js/jquery-3.1.0.min.js' %}"></script>
-    <script type="text/javascript" src="{% static 'general/js/semantic.min.js' %}"></script>
-    <script type="text/javascript" src="{% static 'general/js/generic-script.js' %}"></script>
-    <script type="text/javascript" src="{% static 'general/js/header-footer.js' %}"></script>
+    <script src="{% static 'general/js/jquery.min.js' %}"></script>
+    <script src="{% static 'general/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'general/js/owl.carousel.is' %}"></script>
+    <script src="{% static 'general/js/script.js' %}"></script>
+    <script src="{% static 'general/js/wow.js' %}"></script>
+
+{#    <script type="text/javascript" src="{% static 'general/js/jquery-3.1.0.min.js' %}"></script>#}
+{#    <script type="text/javascript" src="{% static 'general/js/semantic.min.js' %}"></script>#}
+{#    <script type="text/javascript" src="{% static 'general/js/generic-script.js' %}"></script>#}
+{#    <script type="text/javascript" src="{% static 'general/js/header-footer.js' %}"></script>#}
 
 </head>
 <body>
 
-<!-- header -->
-<header class="header1">
-    <div class="ui menu back-grey-menu no-borders">
-        <div class="ui grid container ">
-            <div class="ten wide column right aligned">
-                <div class="ui row row-margin1">
-            <span>نشانه ،
-                {% if user.is_authenticated %}
-                    {% if user.is_superuser %}
-                        سلام مدیر!
-                    {% else %}
-                                            سلام {{ user.first_name }} {{ user.last_name }} !
-                    {% endif %}
-                    <a href="{% url 'user:logout' %}">(خروج)</a>
-                {% else %}
-                    <a href="{% url 'user:login' %}">وارد شوید</a>
-                    یا
-                    <a href="{% url 'user:register' %}">ثبت نام کنید</a>
-
-                {% endif %}
-            </span>
-
+<header id="HOME">
+    <div class="section_overlay">
+        <nav class="navbar navbar-default navbar-fixed-top">
+{#        <nav class="navbar navbar-default navbar-inverse">#}
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                            data-target="#bs-example-navbar-collapse-1">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="/">
+                        <img src="{% static 'site-media/photos/general/book-icon.png' %}" alt="Neshane"
+                                                          style="max-width: 40px;margin-top: -10px;">
+                    </a>
+                    <a class="navbar-brand" href="/">
+                        نشانه
+                    </a>
+{#                    <span class="navbar-brand">نشانه</span>#}
                 </div>
-            </div>
-            <div class="four wide column left aligned">
-                <h2 class="logo">نشانه</h2>
-            </div>
-            <div class="two wide column center aligned">
-                <a href="/">
-                    <img class="logo-img" src="{% static 'site-media/photos/general/book-icon.png' %}">
-                </a>
-            </div>
 
-        </div>
-    </div>
-    <div class="ui menu  no-borders " id="menu2">
-        <div class="ui container">
-{#            <a class="green header link item">#}
-{#                <i class="shop icon"></i>#}
-{#                سبد خرید#}
-{#            </a>#}
-        </div>
-    </div>
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav navbar-right">
+                        {% if user.is_authenticated %}
+                            <li><a href="{% url 'user:profile' %}">حساب کاربری</a></li>
+                            {% if user.is_superuser %}
+                                <li><a href="/admin" class="item">پنل مدیریت
+                                </a></li>
+                                <li><a href="{% url 'tagger:add_sentence' %}" class="item">اضافه کردن جمله
+                                </a></li>
+                            {% endif %}
+                            <li><a href="{% url 'user:logout' %}">خروج</a></li>
+                        {% else %}
+                            <li><a href="{% url 'user:register' %}">ثبت‌ نام</a></li>
+                            <li><a href="{% url 'user:login' %}">ورود</a></li>
 
+                        {% endif %}
+                    </ul>
+                </div><!-- /.navbar-collapse -->
+            </div><!-- /.container -->
+        </nav>
+
+
+    </div>
 </header>
 
 
 {% block content %}
 {% endblock %}
 
-
-<footer class="site-footer">
-    <div class="ui vertical footer segment">
-        <div class="ui center aligned container">
-            <div class="ui  four column grid ">
-                <div class="ui row">
-                    <div class="three wide right aligned column">
-                        <div class="ui animated large relaxed link right aligned list">
-                            <h4 class="header bold" style="text-align: right">منوها</h4>
-                            </hr>
-                            <a href="{% url 'main:index' %}" class="item">خانه</a>
-                        </div>
-                    </div>
-                    <div class="three wide right aligned column">
-                        <div class="ui animated large relaxed link right aligned list">
-
-                            {% if request.user.is_authenticated %}
-                            <h4 class="header bold"> پروفایل شما</h4>
-                            {% endif %}
-                            </hr>
-                            {% if user.is_authenticated %}
-                                    <a href="{% url 'user:profile' %}" class="item">حساب کاربری
-                                    </a>
-                                <a href="/admin" class="item">پنل مدیریت
-                                    </a>
-                                <a href="{% url 'tagger:add_sentence' %}" class="item">اضافه کردن جمله
-                                    </a>
-                            {% else %}
-                                <a class="item" href="{% url 'user:login' %}">ورود</a>
-                                <a class="item" href="{% url 'user:register' %}">ثبت نام</a>
-                            {% endif %}
-                        </div>
-                    </div>
-
-                    <div class="four wide right aligned column" >
-
-                    </div>
-                    <div class="six wide right aligned column">
-                        <h4 class="header">درباره ما</h4>
-                        <div>
-                            <p>
-.....
-                            </p>
-                        </div>
+<footer>
+    <div class="container">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 text-center   wow fadeInUp animated">
+                    <h4>درباره ما</h4>
+                    <div>
+                        <p>
+                            .....
+                        </p>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-
-    <div class="ui vertical footer2 segment">
-        <div class="ui center aligned container">
-            <div class="ui grid container">
-                <div class="ten wide column right aligned">
-                </div>
-                <div class="six wide column right aligned">
-                    <h5 class="ui header copyright" >Copyright © 2018</h5>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <div class="copyright_text   wow fadeInUp animated">
+                        <p>&copy; تمام حقوق برای نشانه محفوظ است. </p>
+                    </div>
                 </div>
             </div>
         </div>

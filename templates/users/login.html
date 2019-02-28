@@ -7,55 +7,82 @@
 
 {% block styles %}
     {% load staticfiles %}
-    <link rel="stylesheet" href="{% static 'accounts/css/style-login.css' %}"/>
+    {#    <link rel="stylesheet" href="{% static 'accounts/css/style-login.css' %}"/>#}
 {% endblock %}
 
 {% block content %}
 
-    <div class="ui container login-margin">
-        <div class="ui one column grid login-grey">
-            <div class="column">
-                <h2>ورود</h2>
-                <div class="ui divider"></div>
-
-                <div class="ui center aligned grid">
-                    {% if login %}
-                        <div class="eight wide center alined column">
-                            <span>با موفقیت وارد شدید.</span>
-                        </div>
-                    {% else %}
-                        <div class="ten wide column">
-                            <form class="ui form" method="post">
-                                {% csrf_token %}
-                                <div class="ui center aligned grid">
-                                    <div class="row">
-                                        <div class="six wide right aligned column">
-                                            {{ form.as_p }}
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="sixteen wide column">
-                                            <input class="ui orange button" type="submit" value="وارد شوید"/>
-                                        </div>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                    {% endif %}
-                </div>
-            </div>
-        </div>
-
+    <div class="form login-form">
+    <div class="modal-header">
+        <h4>ورود</h4>
+{#        <p></p>#}
     </div>
+            <p></p>
+            <p></p>
+        {% if login %}
+            <div class="ui success message">
+با موفقیت وارد شدید.            </div>
+{#            <span>با موفقیت وارد شدید.</span>#}
+        {% else %}
+            <form method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <div>
+                    {#            <input class="ui orange button" type="submit" value="وارد شوید"/>#}
+                    <button type="submit" class="save btn btn-default">ورود</button>
+                </div>
+            </form>
+        {% endif %}
+    </div>
+
+
+
+
+
+    {#    <div class="ui container login-margin">#}
+    {#        <div class="ui one column grid login-grey">#}
+    {#            <div class="column">#}
+    {#                <h2>ورود</h2>#}
+    {#                <div class="ui divider"></div>#}
+    {##}
+    {#                <div class="ui center aligned grid">#}
+    {#                    {% if login %}#}
+    {#                        <div class="eight wide center alined column">#}
+    {#                            <span>با موفقیت وارد شدید.</span>#}
+    {#                        </div>#}
+    {#                    {% else %}#}
+    {#                        <div class="ten wide column">#}
+    {#                            <form class="ui form" method="post">#}
+    {#                                {% csrf_token %}#}
+    {#                                <div class="ui center aligned grid">#}
+    {#                                    <div class="row">#}
+    {#                                        <div class="six wide right aligned column">#}
+    {#                                            {{ form.as_p }}#}
+    {#                                        </div>#}
+    {#                                    </div>#}
+    {#                                    <div class="row">#}
+    {#                                        <div class="sixteen wide column">#}
+    {#                                            <input class="ui orange button" type="submit" value="وارد شوید"/>#}
+    {#                                        </div>#}
+    {#                                    </div>#}
+    {#                                </div>#}
+    {#                            </form>#}
+    {#                        </div>#}
+    {#                    {% endif %}#}
+    {#                </div>#}
+    {#            </div>#}
+    {#        </div>#}
+    {##}
+    {#    </div>#}
 
 {% endblock %}
 
 {% block scripts %}
-    <script>
-
-        $(function () {
-            $('.ui.checkbox')
-                .checkbox()
-        });
-    </script>
+    {#    <script>#}
+    {##}
+    {#        $(function () {#}
+    {#            $('.ui.checkbox')#}
+    {#                    .checkbox()#}
+    {#        });#}
+    {#    </script>#}
 {% endblock %}

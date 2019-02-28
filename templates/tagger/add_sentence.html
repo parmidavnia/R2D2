@@ -7,58 +7,57 @@
 
 {% block styles %}
     {% load staticfiles %}
-    <link rel="stylesheet" href="{% static 'accounts/css/style-login.css' %}"/>
+    {#    <link rel="stylesheet" href="{% static 'accounts/css/style-login.css' %}"/>#}
 {% endblock %}
 
 {% block content %}
 
-    <div class="ui container login-margin">
-        <div class="ui one column center aligned grid login-grey">
-            <div class="ui row">
-                 <div class="ui center aligned column">
-                    <h2>اضافه کردن جمله</h2>
-                    <span>لطفاً فایل csv حاوی جملات را آپلود کنید</span>
+    <div class="form login-form">
+    <div class="modal-header">
+        <h4>اضافه کردن جمله</h4>
+{#        <p></p>#}
+    </div>
+            <p></p>
+            <p></p>
 
-                 </div>
-            </div>
-            <div class="ui center aligned row">
-                <div class="ui center aligned six wide column">
-                    <div class="ui form error success">
-                        {% if error %}
-                            <div class="ui error message">
-                                {{ error }}
-                          </div>
-                        {% endif %}
+{#        <h2>اضافه کردن جمله</h2>#}
+        <p>لطفاً فایل csv حاوی جملات را آپلود کنید.</p>
+        <p></p>
 
-                        {% if done %}
-                            <div class="ui success message">
-                            فایل مورد نظر با موفقیت آپلود شد
-                            </div>
-                        {% endif %}
-                        <form action="{% url "tagger:add_sentence" %}" method="POST" enctype="multipart/form-data" class="form-horizontal">
-                        {% csrf_token %}
-                        <div class="field">
-                            <input type="file" name="csv_file" id="csv_file" required="True" class="">
-                        </div>
-                        <div class="field">
-                            <input type="submit" value='آپلود' class="ui primary button"></input>
-                        </div>
-                        </form>
-                    </div>
-                </div>
+        {% if error %}
+            <div class="ui error message">
+                {{ error }}
             </div>
-        </div>
+        {% endif %}
+        {% if done %}
+            <div class="ui success message">
+                فایل مورد نظر با موفقیت آپلود شد.
+            </div>
+        {% endif %}
+        <form action="{% url "tagger:add_sentence" %}" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="field">
+                <input type="file" name="csv_file" id="csv_file" required="True" class="">
+            </div>
+            {#            <div class="field">#}
+            {#                <input type="submit" value='آپلود' class="ui primary button"></input>#}
+            {#            </div>#}
+            <div>
+                <button type="submit" class="save btn btn-default">بارگذاری</button>
+            </div>
+        </form>
+
 
     </div>
 
 {% endblock %}
 
 {% block scripts %}
-    <script>
-
-        $(function () {
-            $('.ui.checkbox')
-                .checkbox()
-        });
-    </script>
+    {#    <script>#}
+    {##}
+    {#        $(function () {#}
+    {#            $('.ui.checkbox')#}
+    {#                .checkbox()#}
+    {#        });#}
+    {#    </script>#}
 {% endblock %}
