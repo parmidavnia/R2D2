@@ -21,8 +21,8 @@
         <div class="ui container center aligned">
             <div style="font-size: 2em;">جمله جدیدی وجود ندارد!</div>
         </div>
-    {% else %}
-            <div class="ui back-grey-menu center aligned grid container">
+    {% elif  sentence.is_MR%}
+        <div class="ui back-grey-menu center aligned grid container">
             <div class="ui center aligned row">
                 <div style="margin:1em; padding:1em;">
                     <span id="sentence" data-sentence-id={{ sentence.id }} style="font-size:2em;">
@@ -32,24 +32,78 @@
             </div>
             <div class="ui center aligned row">
                 <div class="ui buttons">
-                    <button id="positive-btn" class="ui positive button">مثبت</button>
+                    <button id="mr-inform-five-btn" class="ui button">5</button>
                     <div class="or" data-text="یا"></div>
-                    <button id="neutral-btn" class="ui button">خنثی</button>
+                    <button id="mr-inform-four-btn" class="ui button">4</button>
                     <div class="or" data-text="یا"></div>
-                    <button id="negative-btn" class="ui negative button">منفی</button>
+                    <button id="mr-inform-three-btn" class="ui button">3</button>
+                    <div class="or" data-text="یا"></div>
+                    <button id="mr-inform-two-btn" class="ui button">2</button>
+                    <div class="or" data-text="یا"></div>
+                    <button id="mr-inform-one-btn" class="ui button">1</button>
                 </div>
-{#                <div class="ui two wide column">#}
-{#                    <div class="ui positive basic button">مثبت</div>#}
-{#                </div>#}
-{##}
-{#                <div class="ui two wide column">#}
-{#                    <div class="ui secondary basic button">خنثی</div>#}
-{#                </div>#}
-{##}
-{#                <div class="ui two wide column">#}
-{#                        <button class="ui negative basic button">منفی</button>#}
-{#                </div>#}
+                <div class="column">Informativeness</div>
             </div>
+            <div class="row">
+                <button id="mr-rate-sentence" class="ui purple button">امتیازدهی</button>
+            </div>
+            <div style="visibility: hidden;" id="mr-fields-required">لطفا به همه موارد امتیاز دهید.</div>
+        </div>
+    {% else %}
+        <div class="ui back-grey-menu center aligned grid container">
+            <div class="ui center aligned row">
+                <div style="margin:1em; padding:1em;">
+                    <span id="sentence" data-sentence-id={{ sentence.id }} style="font-size:2em;">
+                        {{ sentence.text }}
+                    </span>
+                </div>
+            </div>
+            <div class="ui center aligned row">
+                <div class="ui buttons">
+                    <button id="inform-five-btn" class="ui button">5</button>
+                    <div class="or" data-text="یا"></div>
+                    <button id="inform-four-btn" class="ui button">4</button>
+                    <div class="or" data-text="یا"></div>
+                    <button id="inform-three-btn" class="ui button">3</button>
+                    <div class="or" data-text="یا"></div>
+                    <button id="inform-two-btn" class="ui button">2</button>
+                    <div class="or" data-text="یا"></div>
+                    <button id="inform-one-btn" class="ui button">1</button>
+                </div>
+                <div class="column">Informativeness</div>
+            </div>
+            <div class="ui center aligned row">
+                <div class="ui buttons">
+                    <button id="natural-five-btn" class="ui button">5</button>
+                    <div class="or" data-text="یا"></div>
+                    <button id="natural-four-btn" class="ui button">4</button>
+                    <div class="or" data-text="یا"></div>
+                    <button id="natural-three-btn" class="ui button">3</button>
+                    <div class="or" data-text="یا"></div>
+                    <button id="natural-two-btn" class="ui button">2</button>
+                    <div class="or" data-text="یا"></div>
+                    <button id="natural-one-btn" class="ui button">1</button>
+                </div>
+                <div class="column">Naturalness</div>
+            </div>
+            <div class="ui center aligned row">
+                <div class="ui buttons">
+                    <button id="quality-five-btn" class="ui button">5</button>
+                    <div class="or" data-text="یا"></div>
+                    <button id="quality-four-btn" class="ui button">4</button>
+                    <div class="or" data-text="یا"></div>
+                    <button id="quality-three-btn" class="ui button">3</button>
+                    <div class="or" data-text="یا"></div>
+                    <button id="quality-two-btn" class="ui button">2</button>
+                    <div class="or" data-text="یا"></div>
+                    <button id="quality-one-btn" class="ui button">1</button>
+                </div>
+                <div class="column">Quality</div>
+            </div>
+            <div class="row">
+                <button id="rate-sentence" class="ui purple button">امتیازدهی</button>
+            </div>
+            <div style="visibility: hidden;" id="fields-required">لطفا به همه موارد امتیاز دهید.</div>
         </div>
     {% endif %}
 
@@ -62,38 +116,228 @@
     <script type="text/javascript" src="{% static 'ketabkhaar/js/flickity.pkgd.min.js' %}"></script>
     <script type="text/javascript" src="{% static 'ketabkhaar/js/js-index.js' %}"></script>
     <script>
-    $('#positive-btn').click(function() {
-        const sentenceId = $('#sentence').attr('data-sentence-id');
-        $.ajax({
-            url: "" + sentenceId + "/rate",
-            type: 'put',
-            data: JSON.stringify({
-                polarity: 1,
-                csrfmiddlewaretoken: '{{ csrf_token }}',
-            }),
-            dataType : "json",
-            success: function(data) {
-                console.log(data);
-                if (data.result === "OK") {
-                    window.location.href = data.url;
-                }
-                else {
-                    console.error('cannot rate', data);
-                }
-            },
-            error: function() {
-                console.error('error');
-            }
-        })
+    let inform = 0;
+    let natural = 0;
+    let quality = 0;
+    let mr_inform = 0;
+    $('#inform-five-btn').click(function() {
+        inform = 5;
+        console.log("inform "+inform);
+        $('#inform-five-btn').addClass("positive");
+        $('#inform-four-btn').removeClass("positive");
+        $('#inform-three-btn').removeClass("positive");
+        $('#inform-two-btn').removeClass("positive");
+        $('#inform-one-btn').removeClass("positive");
+
+    });
+    $('#inform-four-btn').click(function() {
+        inform = 4;
+        console.log("inform "+inform);
+        $('#inform-five-btn').removeClass("positive");
+        $('#inform-four-btn').addClass("positive");
+        $('#inform-three-btn').removeClass("positive");
+        $('#inform-two-btn').removeClass("positive");
+        $('#inform-one-btn').removeClass("positive");
+
+    });
+    $('#inform-three-btn').click(function() {
+        inform = 3;
+        console.log("inform "+inform);
+        $('#inform-five-btn').removeClass("positive");
+        $('#inform-four-btn').removeClass("positive");
+        $('#inform-three-btn').addClass("positive");
+        $('#inform-two-btn').removeClass("positive");
+        $('#inform-one-btn').removeClass("positive");
+    });
+    $('#inform-two-btn').click(function() {
+        inform = 2;
+        console.log("inform "+inform);
+        $('#inform-five-btn').removeClass("positive");
+        $('#inform-four-btn').removeClass("positive");
+        $('#inform-three-btn').removeClass("positive");
+        $('#inform-two-btn').addClass("positive");
+        $('#inform-one-btn').removeClass("positive");
+    });
+    $('#inform-one-btn').click(function() {
+        inform = 1;
+        console.log("inform "+inform);
+        $('#inform-five-btn').removeClass("positive");
+        $('#inform-four-btn').removeClass("positive");
+        $('#inform-three-btn').removeClass("positive");
+        $('#inform-two-btn').removeClass("positive");
+        $('#inform-one-btn').addClass("positive");
     });
 
-    $('#negative-btn').click(function() {
-        const sentenceId = $('#sentence').attr('data-sentence-id');
-        $.ajax({
+    $('#natural-five-btn').click(function() {
+        natural = 5;
+        console.log("natural "+natural);
+        $('#natural-five-btn').addClass("positive");
+        $('#natural-four-btn').removeClass("positive");
+        $('#natural-three-btn').removeClass("positive");
+        $('#natural-two-btn').removeClass("positive");
+        $('#natural-one-btn').removeClass("positive");
+
+    });
+    $('#natural-four-btn').click(function() {
+        natural = 4;
+        console.log("natural "+natural);
+        $('#natural-five-btn').removeClass("positive");
+        $('#natural-four-btn').addClass("positive");
+        $('#natural-three-btn').removeClass("positive");
+        $('#natural-two-btn').removeClass("positive");
+        $('#natural-one-btn').removeClass("positive");
+
+    });
+    $('#natural-three-btn').click(function() {
+        natural = 3;
+        console.log("natural "+natural);
+        $('#natural-five-btn').removeClass("positive");
+        $('#natural-four-btn').removeClass("positive");
+        $('#natural-three-btn').addClass("positive");
+        $('#natural-two-btn').removeClass("positive");
+        $('#natural-one-btn').removeClass("positive");
+    });
+    $('#natural-two-btn').click(function() {
+        natural = 2;
+        console.log("natural "+natural);
+        $('#natural-five-btn').removeClass("positive");
+        $('#natural-four-btn').removeClass("positive");
+        $('#natural-three-btn').removeClass("positive");
+        $('#natural-two-btn').addClass("positive");
+        $('#natural-one-btn').removeClass("positive");
+    });
+    $('#natural-one-btn').click(function() {
+        natural = 1;
+        console.log("natural "+natural);
+        $('#natural-five-btn').removeClass("positive");
+        $('#natural-four-btn').removeClass("positive");
+        $('#natural-three-btn').removeClass("positive");
+        $('#natural-two-btn').removeClass("positive");
+        $('#natural-one-btn').addClass("positive");
+    });
+
+    $('#quality-five-btn').click(function() {
+        quality = 5;
+        console.log("quality "+quality);
+        $('#quality-five-btn').addClass("positive");
+        $('#quality-four-btn').removeClass("positive");
+        $('#quality-three-btn').removeClass("positive");
+        $('#quality-two-btn').removeClass("positive");
+        $('#quality-one-btn').removeClass("positive");
+
+    });
+    $('#quality-four-btn').click(function() {
+        quality = 4;
+        console.log("quality "+quality);
+        $('#quality-five-btn').removeClass("positive");
+        $('#quality-four-btn').addClass("positive");
+        $('#quality-three-btn').removeClass("positive");
+        $('#quality-two-btn').removeClass("positive");
+        $('#quality-one-btn').removeClass("positive");
+
+    });
+    $('#quality-three-btn').click(function() {
+        quality = 3;
+        console.log("quality "+quality);
+        $('#quality-five-btn').removeClass("positive");
+        $('#quality-four-btn').removeClass("positive");
+        $('#quality-three-btn').addClass("positive");
+        $('#quality-two-btn').removeClass("positive");
+        $('#quality-one-btn').removeClass("positive");
+    });
+    $('#quality-two-btn').click(function() {
+        quality = 2;
+        console.log("quality "+quality);
+        $('#quality-five-btn').removeClass("positive");
+        $('#quality-four-btn').removeClass("positive");
+        $('#quality-three-btn').removeClass("positive");
+        $('#quality-two-btn').addClass("positive");
+        $('#quality-one-btn').removeClass("positive");
+    });
+    $('#quality-one-btn').click(function() {
+        quality = 1;
+        console.log("quality "+quality);
+        $('#quality-five-btn').removeClass("positive");
+        $('#quality-four-btn').removeClass("positive");
+        $('#quality-three-btn').removeClass("positive");
+        $('#quality-two-btn').removeClass("positive");
+        $('#quality-one-btn').addClass("positive");
+    });
+
+    $('#mr-inform-five-btn').click(function() {
+        mr_inform = 5;
+        console.log("mr_inform "+mr_inform);
+        $('#mr-inform-five-btn').addClass("positive");
+        $('#mr-inform-four-btn').removeClass("positive");
+        $('#mr-inform-three-btn').removeClass("positive");
+        $('#mr-inform-two-btn').removeClass("positive");
+        $('#mr-inform-one-btn').removeClass("positive");
+
+    });
+    $('#mr-inform-four-btn').click(function() {
+        mr_inform = 4;
+        console.log("mr_inform "+mr_inform);
+        $('#mr-inform-five-btn').removeClass("positive");
+        $('#mr-inform-four-btn').addClass("positive");
+        $('#mr-inform-three-btn').removeClass("positive");
+        $('#mr-inform-two-btn').removeClass("positive");
+        $('#mr-inform-one-btn').removeClass("positive");
+
+    });
+    $('#mr-inform-three-btn').click(function() {
+        mr_inform = 3;
+        console.log("mr_inform "+mr_inform);
+        $('#mr-inform-five-btn').removeClass("positive");
+        $('#mr-inform-four-btn').removeClass("positive");
+        $('#mr-inform-three-btn').addClass("positive");
+        $('#mr-inform-two-btn').removeClass("positive");
+        $('#mr-inform-one-btn').removeClass("positive");
+    });
+    $('#mr-inform-two-btn').click(function() {
+        mr_inform = 2;
+        console.log("mr_inform "+mr_inform);
+        $('#mr-inform-five-btn').removeClass("positive");
+        $('#mr-inform-four-btn').removeClass("positive");
+        $('#mr-inform-three-btn').removeClass("positive");
+        $('#mr-inform-two-btn').addClass("positive");
+        $('#mr-inform-one-btn').removeClass("positive");
+    });
+    $('#mr-inform-one-btn').click(function() {
+        mr_inform = 1;
+        console.log("mr_inform "+mr_inform);
+        $('#mr-inform-five-btn').removeClass("positive");
+        $('#mr-inform-four-btn').removeClass("positive");
+        $('#mr-inform-three-btn').removeClass("positive");
+        $('#mr-inform-two-btn').removeClass("positive");
+        $('#mr-inform-one-btn').addClass("positive");
+    });
+
+    $('#rate-sentence').click(function() {
+        console.log("Informativeness: "+inform);
+        console.log("Naturalness: "+natural);
+        console.log("Quality: "+quality);
+        if (inform===0){
+            console.log("INFORM!!!!");
+            $('#fields-required').css('visibility', 'visible');
+        }
+        else if(natural===0){
+            console.log("NATURAL!!!!");
+            $('#fields-required').css('visibility', 'visible');
+        }
+        else if(quality===0){
+            console.log("QUALITY!!!!");
+            $('#fields-required').css('visibility', 'visible');
+        }
+        else {
+            const sentenceId = $('#sentence').attr('data-sentence-id');
+            $.ajax({
             url: "" + sentenceId + "/rate",
             type: 'put',
             data: JSON.stringify({
-                polarity: -1,
+                inform: inform,
+                natural: natural,
+                quality: quality,
+                is_mr: false,
                 csrfmiddlewaretoken: '{{ csrf_token }}',
             }),
             dataType : "json",
@@ -109,16 +353,24 @@
                 console.error('error');
             }
         })
+        }
+
     });
 
-
-    $('#neutral-btn').click(function() {
-        const sentenceId = $('#sentence').attr('data-sentence-id');
-        $.ajax({
+    $('#mr-rate-sentence').click(function() {
+        console.log("Informativeness: "+mr_inform);
+        if (mr_inform===0){
+            console.log("MR_INFORM!!!!");
+            $('#mr-fields-required').css('visibility', 'visible');
+        }
+        else {
+            const sentenceId = $('#sentence').attr('data-sentence-id');
+            $.ajax({
             url: "" + sentenceId + "/rate",
             type: 'put',
             data: JSON.stringify({
-                polarity: 0,
+                mr_inform: mr_inform,
+                is_mr: true,
                 csrfmiddlewaretoken: '{{ csrf_token }}',
             }),
             dataType : "json",
@@ -134,6 +386,8 @@
                 console.error('error');
             }
         })
+        }
+
     });
     </script>
 

@@ -18,13 +18,13 @@
     <div class="ui container centered grey index-margin">
         <div class="ui center bold aligned" style="font-size: 1.3em; text-align: center">
         {% if next_page %}
-            <a href="{% url 'tagger:get_all_sentences_history' next_page next_limit %}">صفحه بعد</a>
+            <a href="{% url 'tagger:get_all_sentences' next_page next_limit %}">صفحه بعد</a>
         {% endif %}
         {% if next_page and previous_page %}
             ,
         {% endif %}
         {% if previous_page %}
-            <a href="{% url 'tagger:get_all_sentences_history' previous_page next_limit %}">صفحه قبل</a>
+            <a href="{% url 'tagger:get_all_sentences' previous_page next_limit %}">صفحه قبل</a>
         {% endif %}
     </div>
 
