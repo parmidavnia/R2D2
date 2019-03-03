@@ -12,14 +12,15 @@
     {#    <!-- Load Bootstrap RTL theme from RawGit -->#}
     <link rel="stylesheet" href="//cdn.rawgit.com/morteza/bootstrap-rtl/v3.3.4/dist/css/bootstrap-rtl.min.css">
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css"/>
+
+    {#    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css"/>#}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <!-- Animate CSS-->
-    <link rel="stylesheet" type="text/css" href="static/css/animate.css"/>
-    <link rel="stylesheet" type="text/css" href="static/css/animate.css"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'general/css/animate.css' %}"/>
 
 
     <link rel="stylesheet" href="{% static 'general/css/semantic/semantic.css' %}"/>
-{#    <link rel="stylesheet" href="{% static 'general/css/generic-style.css' %}"/>#}
+    {#    <link rel="stylesheet" href="{% static 'general/css/generic-style.css' %}"/>#}
 
     {% block styles %}
     {% endblock %}
@@ -30,10 +31,10 @@
     <script src="{% static 'general/js/script.js' %}"></script>
     <script src="{% static 'general/js/wow.js' %}"></script>
 
-{#    <script type="text/javascript" src="{% static 'general/js/jquery-3.1.0.min.js' %}"></script>#}
-{#    <script type="text/javascript" src="{% static 'general/js/semantic.min.js' %}"></script>#}
-{#    <script type="text/javascript" src="{% static 'general/js/generic-script.js' %}"></script>#}
-{#    <script type="text/javascript" src="{% static 'general/js/header-footer.js' %}"></script>#}
+    {#    <script type="text/javascript" src="{% static 'general/js/jquery-3.1.0.min.js' %}"></script>#}
+    {#    <script type="text/javascript" src="{% static 'general/js/semantic.min.js' %}"></script>#}
+    {#    <script type="text/javascript" src="{% static 'general/js/generic-script.js' %}"></script>#}
+    {#    <script type="text/javascript" src="{% static 'general/js/header-footer.js' %}"></script>#}
 
 </head>
 <body>
@@ -41,7 +42,7 @@
 <header id="HOME">
     <div class="section_overlay">
         <nav class="navbar navbar-default navbar-fixed-top">
-{#        <nav class="navbar navbar-default navbar-inverse">#}
+            {#        <nav class="navbar navbar-default navbar-inverse">#}
             <div class="container">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
@@ -53,12 +54,10 @@
                     </button>
                     <a class="navbar-brand" href="/">
                         <img src="{% static 'site-media/photos/general/book-icon.png' %}" alt="Neshane"
-                                                          style="max-width: 40px;margin-top: -10px;">
+                             style="max-width: 40px;margin-top: -10px;">
                     </a>
-                    <a class="navbar-brand" href="/">
-                        نشانه
-                    </a>
-{#                    <span class="navbar-brand">نشانه</span>#}
+                    <a class="navbar-brand" href="/">Crowd Sourcing - SPL</a>
+                    {#                    <span class="navbar-brand">نشانه</span>#}
                 </div>
 
                 <!-- Collect the nav links, forms, and other content for toggling -->
@@ -66,13 +65,31 @@
                     <ul class="nav navbar-nav navbar-right">
                         {% if user.is_authenticated %}
                             <li><a href="{% url 'user:profile' %}">حساب کاربری</a></li>
+                            <li class="dropdown">
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="#">تستها
+                                    <span class="caret"></span></a>
+                                <ul class="dropdown-menu to-left">
+                                    <li><a href="{% url 'scoring:scoring' %}">sentence scoring</a></li>
+                                    <li><a href="#">sentimental analysis</a></li>
+                                </ul>
+                            </li>
                             {% if user.is_superuser %}
                                 <li><a href="/admin" class="item">پنل مدیریت
                                 </a></li>
-                                <li><a href="{% url 'tagger:add_sentence' %}" class="item">اضافه کردن جمله
-                                </a></li>
-                                <li><a href="{% url 'scoring:add_scoring_sentence' %}" class="item">اضافه کردن دیتاست
-                                </a></li>
+                                <li class="dropdown">
+                                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">افزودن فایل
+                                        <span class="caret"></span></a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="{% url 'tagger:add_sentence' %}" class="item">اضافه کردن جمله</a>
+                                        </li>
+                                        <li><a href="{% url 'scoring:add_scoring_sentence' %}" class="item">اضافه کردن
+                                            دیتاست</a></li>
+                                    </ul>
+                                </li>
+                                {#                                <li><a href="{% url 'tagger:add_sentence' %}" class="item">اضافه کردن جمله#}
+                                {#                                </a></li>#}
+                                {#                                <li><a href="{% url 'scoring:add_scoring_sentence' %}" class="item">اضافه کردن دیتاست#}
+                                {#                                </a></li>#}
                             {% endif %}
                             <li><a href="{% url 'user:logout' %}">خروج</a></li>
                         {% else %}
@@ -97,12 +114,26 @@
     <div class="container">
         <div class="container">
             <div class="row">
-                <div class="col-md-12 text-center   wow fadeInUp animated">
-                    <h4>درباره ما</h4>
-                    <div>
-                        <p>
-                            .....
-                        </p>
+                <div class="col-md-6 text-center   wow fadeInUp animated">
+                    <div class="social">
+                        <h2>ما را دنبال کنید</h2>
+                        <ul class="icon_list">
+                            <li><a href="http://telegram.me/nevisasoft"><i class="fa fa-telegram"></i></a></li>
+                            <li><a href="https://instagram.com/asrgooyesh"><i class="fa fa-instagram"></i></a></li>
+                            <li><a href="SPL@ce.sharif.edu"><i class="fa fa-envelope"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-6 text-center   wow fadeInUp animated">
+                    <div class="social">
+                        <h2>تماس با ما</h2>
+                        <ul class="contact_us">
+                            <li><p><i class="fa fa-home"></i> Crowd Sourcing - SPL</p></li>
+                            <li><p><i class="fa fa-phone"></i> 021-61931000</p></li>
+                            <li><p><i class="fa fa-envelope"></i> SPL@ce.sharif.edu</p></li>
+                            <li><p><i class="fa fa-envelope"></i> تهران، خیابان آزادی، خیابان حبیب الهی، بلوار تیموری،
+                                نبش کوچه برومند، پلاک 2، واحد 10 </p></li>
+                        </ul>
                     </div>
                 </div>
             </div>
@@ -111,7 +142,7 @@
             <div class="row">
                 <div class="col-md-12 text-center">
                     <div class="copyright_text   wow fadeInUp animated">
-                        <p>&copy; تمام حقوق برای نشانه محفوظ است. </p>
+                        <p>2018 &copy; Crowd Sourcing - SPL </p>
                     </div>
                 </div>
             </div>

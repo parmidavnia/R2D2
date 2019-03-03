@@ -1,0 +1,85 @@
+{% extends 'r2d2/base.html' %}
+
+{% block title %}
+    <title>تگر</title>
+{% endblock %}
+
+
+
+{% block styles %}
+    {% load staticfiles %}
+{#<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"#}
+{#          integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">#}
+{% endblock %}
+
+
+{% block content %}
+<section class="about_us" id="ABOUT">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <div class="about_title">
+                        <h2>درباره ما</h2>
+{#                        <img src="{% static 'images/shape.png' %}" alt="">#}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-9  wow fadeInRight animated">
+                    <p>
+                                شرکت دانش بنیان عصر گویش پرداز محصولات و خدمات نرم‌افزاری متنوعی در زمینه‌های هوش مصنوعی و پردازش سیگنال گفتار ارائه کرده است.
+                    یک تیم پژوهشی باتجربه از متخصصان دانشگاه صنعتی شریف در این شرکت فعالیت می‌کنند.
+                    این شرکت مشاوره فروش، نصب و پشتیبانی محصولات خود را توسط افراد مجرب انجام می‌دهد.
+                    عصر گویش پرداز پیشرو در توسعه فناوری‌های مبتنی بر گفتار برای زبان فارسی است.
+                    از جمله این دستاوردها می‌توان به تکنولوژی‌های گفتار به نوشتار، متن به گفتار، جستجو در صوت و تشخیص هویت از روی صدا اشاره کرد.
+
+
+                    </p>
+                    </div>
+                <div class="col-md-3 wow fadeInRight animated">
+                    <img class="about_img" src="{% static 'site-media/photos/general/book-icon.png' %}" >
+                </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+<section class="services" id="SERVICE">
+<div class="container">
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <div class="about_title">
+                        <h2>امکانات</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 text-center">
+                <div class="single_service wow fadeInUp" data-wow-delay="1s">
+                    <i class="fa fa-cog"></i>
+                    <h3>sentence scoring</h3>
+                    <p>در این تست از 1 تا 5 به جملات امتیاز میدهید؛ سه معیار وجود دارد: میزان اطلاعاتی که میدهد، میزان شباهت به زبان انسان، کیفیت جمله.</p>
+                </div>
+            </div>
+            <div class="col-md-6 text-center">
+                <div class="single_service wow fadeInUp" data-wow-delay="2s">
+                    <i class="fa fa-cog"></i>
+                    <h3>sentimental analysis</h3>
+                    <p>در این تست، فقط امتیاز مثبت، منفی و خنثی داده میشود.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}
+
+
+{% block scripts %}
+
+
+{% endblock %}
