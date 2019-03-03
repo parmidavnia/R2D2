@@ -1,0 +1,63 @@
+{% extends 'r2d2/base.html' %}
+
+
+{% block title %}
+    <title>نشانه - اضافه کردن دیتاست</title>
+{% endblock %}
+
+{% block styles %}
+    {% load staticfiles %}
+    {#    <link rel="stylesheet" href="{% static 'accounts/css/style-login.css' %}"/>#}
+{% endblock %}
+
+{% block content %}
+
+    <div class="form login-form">
+    <div class="modal-header">
+        <h4>اضافه کردن دیتاست</h4>
+{#        <p></p>#}
+    </div>
+            <p></p>
+            <p></p>
+
+{#        <h2>اضافه کردن جمله</h2>#}
+        <p>لطفاً فایل csv حاوی جملات را آپلود کنید.</p>
+        <p></p>
+
+        {% if error %}
+            <div class="ui error message">
+                {{ error }}
+            </div>
+        {% endif %}
+        {% if done %}
+            <div class="ui success message">
+                فایل مورد نظر با موفقیت آپلود شد.
+            </div>
+        {% endif %}
+        <form action="{% url "tagger:add_scoring_sentence" %}" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="field">
+                <input type="file" name="csv_file" id="csv_file" required="True" class="">
+            </div>
+            {#            <div class="field">#}
+            {#                <input type="submit" value='آپلود' class="ui primary button"></input>#}
+            {#            </div>#}
+            <div>
+                <button type="submit" class="save btn btn-default">بارگذاری</button>
+            </div>
+        </form>
+
+
+    </div>
+
+{% endblock %}
+
+{% block scripts %}
+    {#    <script>#}
+    {##}
+    {#        $(function () {#}
+    {#            $('.ui.checkbox')#}
+    {#                .checkbox()#}
+    {#        });#}
+    {#    </script>#}
+{% endblock %}

@@ -8,7 +8,8 @@ from django.shortcuts import render
 from django.urls import reverse
 from django.views.decorators.csrf import csrf_exempt
 
-from tagger.models import Sentence, SentenceHistory
+from tagger.models import Sentence, SentenceHistory, ScoringSentence, ScoringSentenceHistory
+from tagger.models import ScoringDataset
 from user.models import User
 
 
@@ -57,23 +58,13 @@ def add_sentence(request):
 
             lines = file_data.split("\n")
             # loop over the lines and save them in db. If error , store as string and then display
-            line_no = -1
             for line in lines:
-                line_no += 1
                 print(line)
                 fields = line.split(",")
-                if line_no == 0:
-                    continue
-                number = fields[0]
-                mr = str(fields[1])
-                text = str(fields[2]).strip()
+                text = str(fields[0]).strip()
                 if len(text) != 0:
-                    s = Sentence(number=number, text=text, is_MR=False)
+                    s = Sentence(text=text)
                     s.save()
-                if len(mr) != 0:
-                    mr_s = Sentence(number=number, text=mr, is_MR=True)
-                    mr_s.save()
-
 
         except Exception as e:
             messages.error(request, "خطا در آپلود فایل: " + repr(e))
@@ -168,101 +159,174 @@ def rate_sentence(request, sentenceId):
     if request.method == 'PUT':
         s = Sentence.objects.get(pk=sentenceId)
         body = json.loads(request.body.decode('utf-8'))
-        is_mr = body.get('is_mr')
-        if is_mr:
-            mr_inform = body.get('mr_inform', None)
-            if mr_inform is None:
+        polarity = body.get('polarity', None)
+        if polarity is None:
+            return JsonResponse({
+                'result': 'ERR',
+                'key': 'SCORE_IS_NONE'
+            })
+
+        ip = get_client_ip(request)
+        u = None
+        if request.user.is_authenticated:
+            user = request.user
+            userId = user.id
+            u = User.objects.get(pk=userId)
+            history = SentenceHistory.objects.filter(sentenceId=s, userId=u)
+            if history is not None and len(history) > 0:
                 return JsonResponse({
                     'result': 'ERR',
-                    'key': 'INFORMATIVENESS_IS_NONE'
+                    'key': 'YOU_RATED_THIS_BEFORE'
                 })
-
-            ip = get_client_ip(request)
-            u = None
-            if request.user.is_authenticated:
-                user = request.user
-                userId = user.id
-                u = User.objects.get(pk=userId)
-                history = SentenceHistory.objects.filter(sentenceId=s, userId=u)
-                if history is not None and len(history) > 0:
-                    return JsonResponse({
-                        'result': 'ERR',
-                        'key': 'YOU_RATED_THIS_BEFORE'
-                    })
-                user.score += 1
-                user.save()
-            else:
-                history = SentenceHistory.objects.filter(sentenceId=s, ip=ip)
-                if history is not None and len(history) > 0:
-                    return JsonResponse({
-                        'result': 'ERR',
-                        'key': 'YOU_RATED_THIS_BEFORE'
-                    })
-
-            informativeness_avg = mr_inform * 0.2 + s.informativeness_avg * 0.8
-            s.informativeness_avg = informativeness_avg
-            s.save()
-
-            sentence_history = SentenceHistory(userId=u, sentenceId=s, informativeness=mr_inform,
-                                               naturalness=0, quality=0, ip=ip)
-            sentence_history.save()
-            return JsonResponse({
-                'result': 'OK',
-                'url': reverse('tagger:sentence')
-            }, safe=False)
+            user.score += 1
+            user.save()
         else:
-            inform = body.get('inform', None)
-            natural = body.get('natural', None)
-            quality = body.get('quality', None)
-            if inform is None:
+            history = SentenceHistory.objects.filter(sentenceId=s, ip=ip)
+            if history is not None and len(history) > 0:
                 return JsonResponse({
                     'result': 'ERR',
-                    'key': 'INFORMATIVENESS_IS_NONE'
+                    'key': 'YOU_RATED_THIS_BEFORE'
                 })
-            if natural is None:
-                return JsonResponse({
-                    'result': 'ERR',
-                    'key': 'NATURALNESS_IS_NONE'
-                })
-            if quality is None:
-                return JsonResponse({
-                    'result': 'ERR',
-                    'key': 'QUALITY_IS_NONE'
-                })
-            ip = get_client_ip(request)
-            u = None
-            if request.user.is_authenticated:
-                user = request.user
-                userId = user.id
-                u = User.objects.get(pk=userId)
-                history = SentenceHistory.objects.filter(sentenceId=s, userId=u)
-                if history is not None and len(history) > 0:
-                    return JsonResponse({
-                        'result': 'ERR',
-                        'key': 'YOU_RATED_THIS_BEFORE'
-                    })
-                user.score += 1
-                user.save()
-            else:
-                history = SentenceHistory.objects.filter(sentenceId=s, ip=ip)
-                if history is not None and len(history) > 0:
-                    return JsonResponse({
-                        'result': 'ERR',
-                        'key': 'YOU_RATED_THIS_BEFORE'
-                    })
 
-            informativeness_avg = inform * 0.2 + s.informativeness_avg * 0.8
-            naturalness_avg = natural * 0.2 + s.naturalness_avg * 0.8
-            quality_avg = quality * 0.2 + s.quality_avg * 0.8
-            s.informativeness_avg = informativeness_avg
-            s.naturalness_avg = naturalness_avg
-            s.quality_avg = quality_avg
-            s.save()
+        avg = ((polarity * 0.2) + (s.polarityAvg * 0.8))
+        s.polarityAvg = avg
+        s.save()
 
-            sentence_history = SentenceHistory(userId=u, sentenceId=s, informativeness=inform,
-                                               naturalness=natural, quality=quality, ip=ip)
-            sentence_history.save()
+        sentence_history = SentenceHistory(userId=u, sentenceId=s, polarity=polarity, ip=ip)
+        sentence_history.save()
+        return JsonResponse({
+            'result': 'OK',
+            'url': reverse('tagger:sentence')
+        }, safe=False)
+
+
+def add_scoring_sentence(request):
+    if not request.user.is_superuser:
+        raise PermissionDenied
+    if request.method == 'GET':
+        return render(request, 'tagger/add_scoring_sentence.html')
+    elif request.method == 'POST':
+        try:
+            csv_file = request.FILES["csv_file"]
+            if not csv_file.name.endswith('.csv'):
+                messages.error(request, 'پسوند فایل باید csv باشد')
+                return render(request, "tagger/add_scoring_sentence.html", {
+                    'error': 'پسوند فایل باید CSV باشد'
+                })
+            if csv_file.multiple_chunks():
+                messages.error(request, "سایز فایل مورد نظر زیاد است (%.2f MB)." % (csv_file.size / (1000 * 1000),))
+                return render(request, "tagger/add_scoring_sentence.html", {
+                    'error': 'سایز فایل مورد نظر زیاد است.'
+                })
+
+            dataset = ScoringDataset(name=csv_file.name)
+            dataset.save()
+            file_data = csv_file.read().decode("utf-8")
+            lines = file_data.split("\n")
+            line_no = -1
+            for line in lines:
+                line_no += 1
+                print(line)
+                fields = line.split(",")
+                if line_no == 0:
+                    continue
+                number = fields[0]
+                mr = str(fields[1])
+                text = str(fields[2]).strip()
+                if len(text) != 0:
+                    s = ScoringSentence(number=number, text=text, mr=mr, dataset=dataset)
+                    s.save()
+
+        except Exception as e:
+            messages.error(request, "خطا در آپلود فایل: " + repr(e))
+            return render(request, "tagger/add_scoring_sentence.html", {
+                'error': 'خطا در آپلود فایل'
+            })
+
+        return render(request, "tagger/add_scoring_sentence.html", {
+            'done': True
+        })
+
+
+def scoring(request):
+    if request.user.is_authenticated:
+        user_sentence_history = ScoringSentenceHistory.objects.filter(userId=request.user.id)
+        user_rated_sentences = [x.sentenceId for x in user_sentence_history]
+    else:
+        ip = get_client_ip(request)
+        user_sentence_history = ScoringSentenceHistory.objects.filter(ip=ip)
+        user_rated_sentences = [x.sentenceId for x in user_sentence_history]
+
+    user_rated_sentences_ids = [x.id for x in user_rated_sentences]
+
+    valid_sentences = ScoringSentence.objects.exclude(id__in=user_rated_sentences_ids)
+    count = len(valid_sentences)
+    if count == 0:
+        return render(request, 'tagger/scoring.html', {'all_rated': True})
+    random_index = randint(0, count - 1)
+    s = valid_sentences[random_index]
+
+    if request.method == 'GET':
+        return render(request, 'tagger/scoring.html', {'sentence': s})
+
+
+@csrf_exempt
+def score_sentence(request, sentenceId):
+    if request.method == 'PUT':
+        s = ScoringSentence.objects.get(pk=sentenceId)
+        body = json.loads(request.body.decode('utf-8'))
+        inform = body.get('inform', None)
+        natural = body.get('natural', None)
+        quality = body.get('quality', None)
+        if inform is None:
             return JsonResponse({
-                'result': 'OK',
-                'url': reverse('tagger:sentence')
-            }, safe=False)
+                'result': 'ERR',
+                'key': 'INFORMATIVENESS_IS_NONE'
+            })
+        if natural is None:
+            return JsonResponse({
+                'result': 'ERR',
+                'key': 'NATURALNESS_IS_NONE'
+            })
+        if quality is None:
+            return JsonResponse({
+                'result': 'ERR',
+                'key': 'QUALITY_IS_NONE'
+            })
+        ip = get_client_ip(request)
+        u = None
+        if request.user.is_authenticated:
+            user = request.user
+            userId = user.id
+            u = User.objects.get(pk=userId)
+            history = ScoringSentenceHistory.objects.filter(sentenceId=s, userId=u)
+            if history is not None and len(history) > 0:
+                return JsonResponse({
+                    'result': 'ERR',
+                    'key': 'YOU_RATED_THIS_BEFORE'
+                })
+            user.score += 1
+            user.save()
+        else:
+            history = ScoringSentenceHistory.objects.filter(sentenceId=s, ip=ip)
+            if history is not None and len(history) > 0:
+                return JsonResponse({
+                    'result': 'ERR',
+                    'key': 'YOU_RATED_THIS_BEFORE'
+                })
+
+        informativeness_avg = inform * 0.2 + s.informativeness_avg * 0.8
+        naturalness_avg = natural * 0.2 + s.naturalness_avg * 0.8
+        quality_avg = quality * 0.2 + s.quality_avg * 0.8
+        s.informativeness_avg = informativeness_avg
+        s.naturalness_avg = naturalness_avg
+        s.quality_avg = quality_avg
+        s.save()
+
+        sentence_history = ScoringSentenceHistory(userId=u, sentenceId=s, informativeness=inform,
+                                           naturalness=natural, quality=quality, ip=ip)
+        sentence_history.save()
+        return JsonResponse({
+            'result': 'OK',
+            'url': reverse('tagger:scoring')
+        }, safe=False)
