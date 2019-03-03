@@ -23,5 +23,6 @@ urlpatterns = [
     url(r'^user/', include('user.urls', namespace='user')),
     url(r'^sentence/', include('tagger.urls', namespace='tagger')),
     url(r'^ticketing/', include('ticketing.urls', namespace='ticketing')),
+    url(r'^scoring/', include('scoring.urls', namespace='scoring')),
     url(r'^', include('main.urls', namespace='main')),
 ]

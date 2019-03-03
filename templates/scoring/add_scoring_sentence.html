@@ -34,7 +34,7 @@
                 فایل مورد نظر با موفقیت آپلود شد.
             </div>
         {% endif %}
-        <form action="{% url "tagger:add_scoring_sentence" %}" method="POST" enctype="multipart/form-data">
+        <form action="{% url "scoring:add_scoring_sentence" %}" method="POST" enctype="multipart/form-data">
             {% csrf_token %}
             <div class="field">
                 <input type="file" name="csv_file" id="csv_file" required="True" class="">

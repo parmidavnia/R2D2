@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'user.apps.UserConfig',
     'tagger.apps.TaggerConfig',
-    'ticketing.apps.TicketingConfig'
+    'ticketing.apps.TicketingConfig',
+    'scoring.apps.ScoringConfig',
 ]
 
 
