@@ -1,5 +1,5 @@
-from django.shortcuts import redirect
+from django.shortcuts import redirect, render
 
 
 def index(request):
-    return redirect('tagger:sentence')
+    return render(request, 'main/main.html')

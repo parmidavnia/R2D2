@@ -70,7 +70,7 @@
                                     <span class="caret"></span></a>
                                 <ul class="dropdown-menu to-left">
                                     <li><a href="{% url 'scoring:scoring' %}">sentence scoring</a></li>
-                                    <li><a href="#">sentimental analysis</a></li>
+                                    <li><a href="{% url 'tagger:sentence' %}">sentimental analysis</a></li>
                                 </ul>
                             </li>
                             {% if user.is_superuser %}
