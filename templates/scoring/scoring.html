@@ -1,100 +1,213 @@
 {% extends 'r2d2/base.html' %}
 
 {% block title %}
-    <title>امتیازدهی</title>
+<title>امتیازدهی</title>
 {% endblock %}
 
 
-
 {% block styles %}
-    {% load staticfiles %}
-    <link rel="stylesheet" href="{% static 'ketabkhaar/css/flickity.css' %}" media="screen">
-    <link rel="stylesheet" href="{% static 'ketabkhaar/css/style-index.css' %}"/>
+{% load staticfiles %}
+<link rel="stylesheet" href="{% static 'general/css/tests.css' %}"/>
 
 {% endblock %}
 
 
 {% block content %}
-    <div class="ui container centered grey index-margin">
 
-    {% if all_rated %}
-        <div class="ui container center aligned">
-            <div style="font-size: 2em;">جمله جدیدی وجود ندارد!</div>
-        </div>
-    {% else %}
-        <div class="ui back-grey-menu center aligned grid container">
-            <div class="ui center aligned row">
-                <div style="margin:1em; padding:1em;">
-                    <span id="sentence" data-sentence-id={{ sentence.id }} style="font-size:2em;">
-                        {{ sentence.text }}
-                    </span>
-                </div>
-            </div>
-            <div class="ui center aligned row">
-                <div style="margin:1em; padding:1em;">
-                    <span id="mr" data-sentence-id=mr-{{ sentence.id }} style="font-size:2em;">
-                        {{ sentence.mr}}
-                    </span>
-                </div>
-            </div>
-            <div class="ui center aligned row">
-                <div class="ui buttons">
-                    <button id="inform-five-btn" class="ui button">5</button>
-                    <div class="or" data-text="یا"></div>
-                    <button id="inform-four-btn" class="ui button">4</button>
-                    <div class="or" data-text="یا"></div>
-                    <button id="inform-three-btn" class="ui button">3</button>
-                    <div class="or" data-text="یا"></div>
-                    <button id="inform-two-btn" class="ui button">2</button>
-                    <div class="or" data-text="یا"></div>
-                    <button id="inform-one-btn" class="ui button">1</button>
-                </div>
-                <div class="column">Informativeness</div>
-            </div>
-            <div class="ui center aligned row">
-                <div class="ui buttons">
-                    <button id="natural-five-btn" class="ui button">5</button>
-                    <div class="or" data-text="یا"></div>
-                    <button id="natural-four-btn" class="ui button">4</button>
-                    <div class="or" data-text="یا"></div>
-                    <button id="natural-three-btn" class="ui button">3</button>
-                    <div class="or" data-text="یا"></div>
-                    <button id="natural-two-btn" class="ui button">2</button>
-                    <div class="or" data-text="یا"></div>
-                    <button id="natural-one-btn" class="ui button">1</button>
-                </div>
-                <div class="column">Naturalness</div>
-            </div>
-            <div class="ui center aligned row">
-                <div class="ui buttons">
-                    <button id="quality-five-btn" class="ui button">5</button>
-                    <div class="or" data-text="یا"></div>
-                    <button id="quality-four-btn" class="ui button">4</button>
-                    <div class="or" data-text="یا"></div>
-                    <button id="quality-three-btn" class="ui button">3</button>
-                    <div class="or" data-text="یا"></div>
-                    <button id="quality-two-btn" class="ui button">2</button>
-                    <div class="or" data-text="یا"></div>
-                    <button id="quality-one-btn" class="ui button">1</button>
-                </div>
-                <div class="column">Quality</div>
-            </div>
-            <div class="row">
-                <button id="rate-sentence" class="ui purple button">امتیازدهی</button>
-            </div>
-            <div style="visibility: hidden;" id="fields-required">لطفا به همه موارد امتیاز دهید.</div>
-        </div>
-    {% endif %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card-container to-center">
+                    <span class="card-header">
+                    <p>در این تست از 1 تا 5 به جملات امتیاز میدهید؛ سه معیار وجود دارد:
+                        میزان اطلاعاتی که میدهد، میزان شباهت به زبان انسان، کیفیت جمله.</p>
+                        <span class="card-title">
+					        <h3>sentence scoring</h3>
+				        </span>
+			        </span>
+                <div class="content">
+                    <!--<div class="ui container centered grey index-margin">-->
+                    <div class="ui container centered">
+                        {% if all_rated %}
+                        <div class="ui container center aligned">
+                            <div style="font-size: 2em;">جمله جدیدی وجود ندارد!</div>
+                        </div>
+                        {% else %}
+                        <div class="ui center aligned grid container">
+                            <div class="ui center aligned row">
+                                <div class="container">
+                                    <div class="row">
+                                        <!--<div class="col-sm-9" style="margin:0.5em; padding:0.5em;">-->
+                                        <div class="col-sm-9">
+                            <span dir="ltr" class="sentences" id="sentence" data-sentence-id={{ sentence.id }}>
+                            {{ sentence.text }}</span>
+                                        </div>
+                                        <div class="column col-sm-3" style="padding-top:1em;">نمایش معنایی</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="ui center aligned row">
+                                <div class="container">
+                                    <div class="row">
+                                        <!--<div class="col-sm-9" style="margin:0.5em; padding:0.5em;">-->
+                                        <div class="col-sm-9">
+                            <span dir="ltr" class="sentences" id="mr" data-sentence-id=mr-{{ sentence.id }}>
+                            {{ sentence.mr}}</span>
+                                        </div>
+                                        <div class="column col-sm-3" style="padding-top:1em;">جمله ی معادل</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="ui center aligned row">
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="ui buttons col-sm-9">
+                                            <button id="inform-five-btn" class="ui button">5</button>
+                                            <div class="or" data-text="یا"></div>
+                                            <button id="inform-four-btn" class="ui button">4</button>
+                                            <div class="or" data-text="یا"></div>
+                                            <button id="inform-three-btn" class="ui button">3</button>
+                                            <div class="or" data-text="یا"></div>
+                                            <button id="inform-two-btn" class="ui button">2</button>
+                                            <div class="or" data-text="یا"></div>
+                                            <button id="inform-one-btn" class="ui button">1</button>
+                                        </div>
+                                        <div class="column col-sm-3" style="padding-top:0.5em;">Informativeness</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="ui center aligned row">
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="ui buttons col-sm-9">
+                                            <button id="natural-five-btn" class="ui button">5</button>
+                                            <div class="or" data-text="یا"></div>
+                                            <button id="natural-four-btn" class="ui button">4</button>
+                                            <div class="or" data-text="یا"></div>
+                                            <button id="natural-three-btn" class="ui button">3</button>
+                                            <div class="or" data-text="یا"></div>
+                                            <button id="natural-two-btn" class="ui button">2</button>
+                                            <div class="or" data-text="یا"></div>
+                                            <button id="natural-one-btn" class="ui button">1</button>
+                                        </div>
+                                        <div class="column-col-sm-3" style="padding-top:0.5em;">Naturalness</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="ui center aligned row">
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="ui buttons col-sm-9">
+                                            <button id="quality-five-btn" class="ui button">5</button>
+                                            <div class="or" data-text="یا"></div>
+                                            <button id="quality-four-btn" class="ui button">4</button>
+                                            <div class="or" data-text="یا"></div>
+                                            <button id="quality-three-btn" class="ui button">3</button>
+                                            <div class="or" data-text="یا"></div>
+                                            <button id="quality-two-btn" class="ui button">2</button>
+                                            <div class="or" data-text="یا"></div>
+                                            <button id="quality-one-btn" class="ui button">1</button>
+                                        </div>
+                                        <div class="column col-sm-3" style="padding-top:0.5em;">Quality</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <button id="rate-sentence" class="boxes-btn">امتیازدهی</button>
+                            </div>
+                            <div style="visibility: hidden;" id="fields-required" class="ui error message">لطفا به همه
+                                موارد امتیاز دهید.
+                            </div>
+                        </div>
+                        {% endif %}
 
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
+</div>
+
+
+<!--<div class="ui container centered grey index-margin">-->
+<!--{% if all_rated %}-->
+<!--<div class="ui container center aligned">-->
+<!--<div style="font-size: 2em;">جمله جدیدی وجود ندارد!</div>-->
+<!--</div>-->
+<!--{% else %}-->
+<!--<div class="ui back-grey-menu center aligned grid container">-->
+<!--<div class="ui center aligned row">-->
+<!--<div style="margin:1em; padding:1em;">-->
+<!--<span id="sentence" data-sentence-id={{ sentence.id }} style="font-size:2em;">-->
+<!--{{ sentence.text }}-->
+<!--</span>-->
+<!--</div>-->
+<!--</div>-->
+<!--<div class="ui center aligned row">-->
+<!--<div style="margin:1em; padding:1em;">-->
+<!--<span id="mr" data-sentence-id=mr-{{ sentence.id }} style="font-size:2em;">-->
+<!--{{ sentence.mr}}-->
+<!--</span>-->
+<!--</div>-->
+<!--</div>-->
+<!--<div class="ui center aligned row">-->
+<!--<div class="ui buttons">-->
+<!--<button id="inform-five-btn" class="ui button">5</button>-->
+<!--<div class="or" data-text="یا"></div>-->
+<!--<button id="inform-four-btn" class="ui button">4</button>-->
+<!--<div class="or" data-text="یا"></div>-->
+<!--<button id="inform-three-btn" class="ui button">3</button>-->
+<!--<div class="or" data-text="یا"></div>-->
+<!--<button id="inform-two-btn" class="ui button">2</button>-->
+<!--<div class="or" data-text="یا"></div>-->
+<!--<button id="inform-one-btn" class="ui button">1</button>-->
+<!--</div>-->
+<!--<div class="column">Informativeness</div>-->
+<!--</div>-->
+<!--<div class="ui center aligned row">-->
+<!--<div class="ui buttons">-->
+<!--<button id="natural-five-btn" class="ui button">5</button>-->
+<!--<div class="or" data-text="یا"></div>-->
+<!--<button id="natural-four-btn" class="ui button">4</button>-->
+<!--<div class="or" data-text="یا"></div>-->
+<!--<button id="natural-three-btn" class="ui button">3</button>-->
+<!--<div class="or" data-text="یا"></div>-->
+<!--<button id="natural-two-btn" class="ui button">2</button>-->
+<!--<div class="or" data-text="یا"></div>-->
+<!--<button id="natural-one-btn" class="ui button">1</button>-->
+<!--</div>-->
+<!--<div class="column">Naturalness</div>-->
+<!--</div>-->
+<!--<div class="ui center aligned row">-->
+<!--<div class="ui buttons">-->
+<!--<button id="quality-five-btn" class="ui button">5</button>-->
+<!--<div class="or" data-text="یا"></div>-->
+<!--<button id="quality-four-btn" class="ui button">4</button>-->
+<!--<div class="or" data-text="یا"></div>-->
+<!--<button id="quality-three-btn" class="ui button">3</button>-->
+<!--<div class="or" data-text="یا"></div>-->
+<!--<button id="quality-two-btn" class="ui button">2</button>-->
+<!--<div class="or" data-text="یا"></div>-->
+<!--<button id="quality-one-btn" class="ui button">1</button>-->
+<!--</div>-->
+<!--<div class="column">Quality</div>-->
+<!--</div>-->
+<!--<div class="row">-->
+<!--<button id="rate-sentence" class="ui purple button">امتیازدهی</button>-->
+<!--</div>-->
+<!--<div style="visibility: hidden;" id="fields-required">لطفا به همه موارد امتیاز دهید.</div>-->
+<!--</div>-->
+<!--{% endif %}-->
+
+<!--</div>-->
 
 {% endblock %}
 
 
 {% block scripts %}
-    <script type="text/javascript" src="{% static 'ketabkhaar/js/flickity.pkgd.min.js' %}"></script>
-    <script type="text/javascript" src="{% static 'ketabkhaar/js/js-index.js' %}"></script>
-    <script>
+<script type="text/javascript" src="{% static 'ketabkhaar/js/flickity.pkgd.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'ketabkhaar/js/js-index.js' %}"></script>
+<script>
     let inform = 0;
     let natural = 0;
     let quality = 0;
@@ -287,6 +400,8 @@
         }
 
     });
-    </script>
+
+
+</script>
 
 {% endblock %}

@@ -1,67 +1,114 @@
 {% extends 'r2d2/base.html' %}
 
 {% block title %}
-    <title>تگر</title>
+<title>تگر</title>
 {% endblock %}
 
 
-
 {% block styles %}
-    {% load staticfiles %}
-    <link rel="stylesheet" href="{% static 'ketabkhaar/css/flickity.css' %}" media="screen">
-    <link rel="stylesheet" href="{% static 'ketabkhaar/css/style-index.css' %}"/>
+{% load staticfiles %}
+<link rel="stylesheet" href="{% static 'general/css/tests.css' %}"/>
 
 {% endblock %}
 
 
 {% block content %}
-    <div class="ui container centered grey index-margin">
 
-    {% if all_rated %}
-        <div class="ui container center aligned">
-            <div style="font-size: 2em;">جمله جدیدی وجود ندارد!</div>
-        </div>
-    {% else %}
-            <div class="ui back-grey-menu center aligned grid container">
-            <div class="ui center aligned row">
-                <div style="margin:1em; padding:1em;">
-                    <span id="sentence" data-sentence-id={{ sentence.id }} style="font-size:2em;">
-                        {{ sentence.text }}
-                    </span>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card-container to-center">
+                    <span class="card-header">
+                        <p>در این تست، فقط امتیاز مثبت، منفی و خنثی داده میشود.</p>
+                        <span class="card-title">
+					        <h3>sentimental analysis</h3>
+				        </span>
+
+			        </span>
+                <div class="content">
+                        <!--<div class="ui container centered grey index-margin">-->
+                        <div class="ui container centered">
+                            {% if all_rated %}
+                            <div class="ui container center aligned">
+                                <div style="font-size: 2em;">جمله جدیدی وجود ندارد!</div>
+                            </div>
+                            {% else %}
+                            <div class="ui center aligned grid container">
+                                <div class="ui center aligned row">
+                                    <!--<div style="margin:1em; padding:1em;">-->
+                                    <div style="margin:1em;">
+                        <span dir="ltr" class="sentences" id="sentence" data-sentence-id={{ sentence.id }}>
+                            {{ sentence.text }}</span>
+                                    </div>
+                                </div>
+                                <div class="ui center aligned row">
+                                    <div class="ui buttons">
+                                        <button id="positive-btn" class="ui positive button">مثبت</button>
+                                        <div class="or" data-text="یا"></div>
+                                        <button id="neutral-btn" class="ui button">خنثی</button>
+                                        <div class="or" data-text="یا"></div>
+                                        <button id="negative-btn" class="ui negative button">منفی</button>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endif %}
+
+                        </div>
                 </div>
             </div>
-            <div class="ui center aligned row">
-                <div class="ui buttons">
-                    <button id="positive-btn" class="ui positive button">مثبت</button>
-                    <div class="or" data-text="یا"></div>
-                    <button id="neutral-btn" class="ui button">خنثی</button>
-                    <div class="or" data-text="یا"></div>
-                    <button id="negative-btn" class="ui negative button">منفی</button>
-                </div>
-{#                <div class="ui two wide column">#}
-{#                    <div class="ui positive basic button">مثبت</div>#}
-{#                </div>#}
-{##}
-{#                <div class="ui two wide column">#}
-{#                    <div class="ui secondary basic button">خنثی</div>#}
-{#                </div>#}
-{##}
-{#                <div class="ui two wide column">#}
-{#                        <button class="ui negative basic button">منفی</button>#}
-{#                </div>#}
-            </div>
         </div>
-    {% endif %}
-
     </div>
+</div>
+
+
+<!--<div class="ui container centered grey index-margin">-->
+
+<!--{% if all_rated %}-->
+<!--<div class="ui container center aligned">-->
+<!--<div style="font-size: 2em;">جمله جدیدی وجود ندارد!</div>-->
+<!--</div>-->
+<!--{% else %}-->
+<!--<div class="ui back-grey-menu center aligned grid container">-->
+<!--<div class="ui center aligned row">-->
+<!--<div style="margin:1em; padding:1em;">-->
+<!--<span id="sentence" data-sentence-id={{ sentence.id }} style="font-size:2em;">-->
+<!--{{ sentence.text }}-->
+<!--</span>-->
+<!--</div>-->
+<!--</div>-->
+<!--<div class="ui center aligned row">-->
+<!--<div class="ui buttons">-->
+<!--<button id="positive-btn" class="ui positive button">مثبت</button>-->
+<!--<div class="or" data-text="یا"></div>-->
+<!--<button id="neutral-btn" class="ui button">خنثی</button>-->
+<!--<div class="or" data-text="یا"></div>-->
+<!--<button id="negative-btn" class="ui negative button">منفی</button>-->
+<!--</div>-->
+<!--{#                <div class="ui two wide column">#}-->
+<!--{#                    <div class="ui positive basic button">مثبت</div>#}-->
+<!--{#                </div>#}-->
+<!--{##}-->
+<!--{#                <div class="ui two wide column">#}-->
+<!--{#                    <div class="ui secondary basic button">خنثی</div>#}-->
+<!--{#                </div>#}-->
+<!--{##}-->
+<!--{#                <div class="ui two wide column">#}-->
+<!--{#                        <button class="ui negative basic button">منفی</button>#}-->
+<!--{#                </div>#}-->
+<!--</div>-->
+<!--</div>-->
+<!--{% endif %}-->
+
+<!--</div>-->
 
 {% endblock %}
 
 
 {% block scripts %}
-    <script type="text/javascript" src="{% static 'ketabkhaar/js/flickity.pkgd.min.js' %}"></script>
-    <script type="text/javascript" src="{% static 'ketabkhaar/js/js-index.js' %}"></script>
-    <script>
+<script type="text/javascript" src="{% static 'ketabkhaar/js/flickity.pkgd.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'ketabkhaar/js/js-index.js' %}"></script>
+<script>
     $('#positive-btn').click(function() {
         const sentenceId = $('#sentence').attr('data-sentence-id');
         $.ajax({
@@ -135,6 +182,7 @@
             }
         })
     });
-    </script>
+
+</script>
 
 {% endblock %}

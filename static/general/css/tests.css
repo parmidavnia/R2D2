@@ -1,0 +1,121 @@
+/* card Style ********************************************************/
+
+/*.card-header {*/
+    /*display: block;*/
+    /*overflow: hidden;*/
+    /*position: relative;*/
+    /*padding-bottom: 2em;*/
+    /*-moz-border-radius-topleft: 8px;*/
+    /*-webkit-border-top-left-radius: 8px;*/
+    /*border-top-left-radius: 8px;*/
+    /*-moz-border-radius-topright: 8px;*/
+    /*-webkit-border-top-right-radius: 8px;*/
+    /*border-top-right-radius: 8px;*/
+/*}*/
+
+.card-container {
+    /*width: 350px;*/
+    width: 85%;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    -ms-border-radius: 8px;
+    -o-border-radius: 8px;
+    border-radius: 8px;
+    padding-bottom: 1.5em;
+    margin-bottom: 20px;
+    /*background-color: #dde1e2;*/
+    /*background: #dde1e2;*/
+    -webkit-box-shadow: #bdc3c7 0 5px 5px;
+    -moz-box-shadow: #bdc3c7 0 5px 5px;
+    box-shadow: #bdc3c7 0 5px 5px;
+    background: #bdc3c7;
+}
+
+/*.card-container:hover, .card-container:focus {
+    background: #bdc3c7;
+    -moz-box-shadow: rgba(0, 0, 0, 0.45) 0px 0px 20px 0px;
+    -webkit-box-shadow: rgba(0, 0, 0, 0.45) 0px 0px 20px 0px;
+    box-shadow: rgba(0, 0, 0, 0.45) 0px 0px 20px 0px;
+}*/
+
+.card-container span {
+    display: block;
+}
+
+.card-container .card-header {
+    position: relative;
+    height: 160px;
+    overflow: hidden;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    background-color: rgba(255, 255, 255, 0.15);
+    background-blend-mode: overlay;
+    -moz-border-radius: 4px 4px 0 0;
+    -webkit-border-radius: 4px;
+    border-radius: 4px 4px 0 0;
+    background: #dde1e2;
+    text-align: center;
+}
+
+/*.card-container .card-header:hover, .card-container .card-header:focus {
+    background-color: rgba(255, 255, 255, 0);
+}*/
+
+.card-container .card-title {
+    background: rgba(70, 130, 80, 0.6);
+    /*background: rgba(255, 195, 65, 0.85);*/
+    padding: 2.5% 0 2.5% 0;
+    color: black;
+    font-family: 'Roboto Condensed', sans-serif;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+
+}
+
+/*.card-container:hover .card-title, .card-container:focus .card-title {
+    /*background: rgba(157, 187, 63, 0.95);*/
+    background: rgba(255, 195, 65, 0.95);
+}*/
+
+.card-container .card-title h3 {
+    font-size: 14px;
+    line-height: 1.2;
+    padding: 0 3.5%;
+    margin: 0;
+}
+
+.card-container .card-header p {
+    font-size: 14px;
+    padding: 20px 3.5%;
+}
+
+.card-container .card-ul {
+    list-style-type: none;
+}
+
+.card-ul a {
+    text-shadow: 3px 3px 3px rgba(0, 0, 0, 0.5);
+}
+
+.card-ul a:hover {
+    text-shadow: 6px 6px 6px rgba(0, 0, 0, 0.7);
+    color: rgba(255, 195, 65, 1);
+    text-decoration: none;
+}
+
+.content{
+    margin-bottom: 0 ;
+}
+
+.to-center{
+    margin: 1.5em auto 0 auto;
+}
+
+
+.sentences{
+/*font-family: 'Roboto Condensed', sans-serif;*/
+font-size: 14px;
+padding: 1em 10.5%;
+}

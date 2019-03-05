@@ -20,7 +20,7 @@
 
 
     <link rel="stylesheet" href="{% static 'general/css/semantic/semantic.css' %}"/>
-    {#    <link rel="stylesheet" href="{% static 'general/css/generic-style.css' %}"/>#}
+    <!--{#    <link rel="stylesheet" href="{% static 'general/css/generic-style.css' %}"/>#}-->
 
     {% block styles %}
     {% endblock %}
@@ -66,7 +66,7 @@
                         {% if user.is_authenticated %}
                             <li><a href="{% url 'user:profile' %}">حساب کاربری</a></li>
                             <li class="dropdown">
-                                <a class="dropdown-toggle" data-toggle="dropdown" href="#">تستها
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="#">تست ها
                                     <span class="caret"></span></a>
                                 <ul class="dropdown-menu to-left">
                                     <li><a href="{% url 'scoring:scoring' %}">sentence scoring</a></li>
