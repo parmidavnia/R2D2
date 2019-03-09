@@ -664,8 +664,10 @@ ul.contact_us {
 
 .links {
     margin: 1.5em auto 0 auto;
-    background-color: #2589cc;
-    width: 150px;
+    /*background-color: #2589cc;*/
+    background-color: rgba(1, 152, 117, 1);
+    /*width: 150px;*/
+    width: 50%;
     color: white;
     text-align: center;
     padding: .5em;
@@ -689,7 +691,8 @@ ul.contact_us {
 }
 
 .links:hover {
-    background-color: #167abd;
+    /*background-color: #167abd;*/
+    background-color: rgba(70, 130, 80, 0.6);
     cursor: pointer;
 }
 

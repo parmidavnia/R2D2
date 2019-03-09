@@ -1,0 +1,109 @@
+{% extends 'r2d2/base.html' %}
+
+{% block title %}
+<title>معرفی تست sentimental analysis</title>
+{% endblock %}
+
+
+{% block styles %}
+{% load staticfiles %}
+{% endblock %}
+
+
+{% block content %}
+
+<section class="services" id="SERVICE">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <div class="about_title">
+                    <h2>معرفی تست sentimental analysis</h2>
+                    <p style="text-align: justify">
+                        در این تست 40 نمایش معنایی به همراه چهار جمله ساخته شده از آن ها ار دو دامنه ی معرفی رستوران و
+                        هتل در احتیار شما قرار داده شده است
+                        (برخی از جملات تکراری هستند). شما باید به هر جمله برای سه فاکتور مشخص
+                        Informativeness، Naturalness و Quality امتیازی بین 1 تا 5 دهید.
+                        در زیر هر کدام از فاکتورها و همینطور نحوه ی امتیاز دهی شرح داده شده خواهد شد.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 text-center">
+                <div class="single_service wow fadeInUp" data-wow-delay="1s">
+                    <i class="fa fa-cog"></i>
+                    <h3>Informativeness</h3>
+                    <p style="text-align: justify">
+                        با توجه به فیلدهایی که در نمایش معنایی وجود دارند، بررسی کنید که آیا تمام آن ها در جمله ی ساخته
+                        شده وجود
+                        دارند یا نه. فرض کنید که یک نمایش معنایی شامل سه فیلد است. اگر تمام مقادیر فیلدها در جمله ذکر
+                        شده است به آن امتیاز پنج دهید.
+                        اگر تنها یکی از مقادیر فیلدها در جمله ذکر نشده است به این معناست که 2/3 از مقادیر در جمله موجود
+                        است و تنها
+                        1/3 ذکر نشده پس امتیاز جمله برابر سه (5*2/3) خواهد بود
+                        (اعداد را رند کنید). اگر هیچ کدام از مقادیر فیلدها در جمله ذکر نشده امتیاز آن برابر یک میشود.
+                    </p>
+                </div>
+            </div>
+            <div class="col-md-4 text-center">
+                <div class="single_service wow fadeInUp" data-wow-delay="2s">
+                    <i class="fa fa-cog"></i>
+                    <h3>Naturalness</h3>
+                    <p style="text-align: justify">
+                        بررسی کنید آیا این جمله را می توان به عنوان جمله گفته شده توسط یک فرد native در نظر گرفت؟
+                        اگر فکر می کنید جمله کاملا روان است امتیاز پنج، اگر به نظر شما خوب است
+                        و اشتباهات خیلی کمی دارد به طوری که قابل چشم پوشی هستند امتیاز چهار، اگر به نظر شما روان نیست
+                        ولی
+                        قابل فهم است امتیاز سه، اگر به سختی قابل فهم است امتیاز دو و اگر اصلا قابل فهم نیست امتیاز یک
+                        دهید.
+                    </p>
+                </div>
+            </div>
+            <div class="col-md-4 text-center">
+                <div class="single_service wow fadeInUp" data-wow-delay="3s">
+                    <i class="fa fa-cog"></i>
+                    <h3>Quality</h3>
+                    <p style="text-align: justify">
+                        بررسی کنید ایا این جمله از نظر گرامری درست است؟ اگر فکر می کنید جمله کاملا درست است امتیاز پنج،
+                        اگر به نظر شما خوب است و اشتباهات خیلی کمی (مانند نبود s جمع و به همین ترتیب اشاره گر مفرد به
+                        جای اشاره گر جمع است و بالعکس)
+                        به طوری که قابل چشم پوشی هستند امتیاز چهار،
+                        اگر به نظر شما اشتباهات فاحشی (مانند انتخاب فعل یا اشتباه در محل قرار گرفتن نقش های دستوری و یا
+                        حتی نبود آن ها)
+                        وجود دارد ولی جمله قابل فهم است امتیاز سه، اگر اشکالات گرامری به حدی است که جمله به سختی قابل
+                        فهم است
+                        امتیاز دو و اگر اصلا قابل فهم نیست امتیاز یک دهید.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <p>
+                    توجه به این نکته الزامی است: هر جمله را به صورت منحصر به فرد بررسی کنید و امتیازات را بر اساس مقایسه
+                    بین جملات وارد نکنید.
+                </p>
+            </div>
+        </div>
+    </div>
+        <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="links">
+                    <a href="#">ورود به تست</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}
+
+
+{% block scripts %}
+
+{% endblock %}
