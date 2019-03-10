@@ -7,6 +7,7 @@ from django.views.generic import UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 from tagger.models import SentenceHistory, Sentence
+from scoring.models import ScoringSentenceHistory, ScoringSentence
 from .models import User
 from .forms import UserForm, UserRegisterForm
 
@@ -102,14 +103,24 @@ def profile(request):
     if request.method == 'GET':
         if request.user.is_authenticated:
             ratings = SentenceHistory.objects.filter(userId=request.user)
+            scores = ScoringSentenceHistory.objects.filter(userId=request.user)
             sentence_histories = None
             sentences = None
+            scoring_sentence_histories = None
+            scoring_sentences = None
             if request.user.is_superuser:
                 sentence_histories = SentenceHistory.objects.all().order_by('-id')[:12]
                 sentences = Sentence.objects.all().order_by('-id')[:12]
+
+                scoring_sentence_histories = ScoringSentenceHistory.objects.all().order_by('-id')[:12]
+                scoring_sentences = ScoringSentence.objects.all().order_by('-id')[:12]
+
             return render(request, 'users/profile.html', {
                 'user': request.user,
                 'ratings': ratings,
+                'scores' : scores,
                 'sentence_histories': sentence_histories,
-                'sentences': sentences
+                'sentences': sentences,
+                'scoring_sentence_histories': scoring_sentence_histories,
+                'scoring_sentences': scoring_sentences,
             })
