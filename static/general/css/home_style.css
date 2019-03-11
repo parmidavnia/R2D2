@@ -636,7 +636,6 @@ ul.contact_us {
 }
 
 .boxes-btn {
-    text-transform: uppercase;
     outline: 0;
     /*background: #ff944d;*/
     background: rgba(1, 152, 117, 1);
@@ -667,7 +666,7 @@ ul.contact_us {
     /*background-color: #2589cc;*/
     background-color: rgba(1, 152, 117, 1);
     /*width: 150px;*/
-    width: 50%;
+    width: 35%;
     color: white;
     text-align: center;
     padding: .5em;
@@ -701,4 +700,34 @@ ul.contact_us {
 }
 .links > a:hover {
     color: #FFF;
+}
+
+.borders {
+    /*width: 350px;*/
+    width: 85%;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    -ms-border-radius: 8px;
+    -o-border-radius: 8px;
+    border-radius: 8px;
+    padding: 15px 10px 5px 10px;
+    margin-bottom: 10px;
+    /*background-color: #dde1e2;*/
+    /*background: #dde1e2;*/
+    -webkit-box-shadow: #bdc3c7 0 5px 5px;
+    -moz-box-shadow: #bdc3c7 0 5px 5px;
+    box-shadow: #bdc3c7 0 5px 5px;
+    background: #f1f1f1;
+
+}
+
+.borders:hover {
+    /*background: rgba(157, 187, 63, 0.95);*/
+    box-shadow: #bdc3c7 0 5px 10px;
+    background: #bdc3c7;
+}
+
+
+.to-center{
+    margin: 1.5em auto 0 auto;
 }

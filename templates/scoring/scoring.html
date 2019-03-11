@@ -19,8 +19,8 @@
         <div class="col-md-12">
             <div class="card-container to-center">
                     <span class="card-header">
-                    <p>در این تست از 1 تا 5 به جملات امتیاز میدهید؛ سه معیار وجود دارد:
-                        میزان اطلاعاتی که میدهد، میزان شباهت به زبان انسان، کیفیت جمله از نظر گرامری.</p>
+                    <!--<p>در این تست از 1 تا 5 به جملات امتیاز میدهید؛ سه معیار وجود دارد:-->
+                        <!--میزان اطلاعاتی که میدهد، میزان شباهت به زبان انسان، کیفیت جمله از نظر گرامری.</p>-->
                         <span class="card-title">
 					        <h3>sentence scoring</h3>
 				        </span>
@@ -39,8 +39,8 @@
                                     <div class="row">
                                         <!--<div class="col-sm-9" style="margin:0.5em; padding:0.5em;">-->
                                         <div class="col-sm-9">
-                            <span dir="ltr" class="sentences" id="sentence" data-sentence-id={{ sentence.id }}>
-                            {{ sentence.text }}</span>
+                            <span dir="ltr" class="sentences" id="mr" data-sentence-id=mr-{{ sentence.id }}>
+                            {{ sentence.mr}}</span>
                                         </div>
                                         <div class="column col-sm-3" style="padding-top:1em;">نمایش معنایی</div>
                                     </div>
@@ -51,8 +51,8 @@
                                     <div class="row">
                                         <!--<div class="col-sm-9" style="margin:0.5em; padding:0.5em;">-->
                                         <div class="col-sm-9">
-                            <span dir="ltr" class="sentences" id="mr" data-sentence-id=mr-{{ sentence.id }}>
-                            {{ sentence.mr}}</span>
+                            <span dir="ltr" class="sentences" id="sentence" data-sentence-id={{ sentence.id }}>
+                            {{ sentence.text }}</span>
                                         </div>
                                         <div class="column col-sm-3" style="padding-top:1em;">جمله ی معادل</div>
                                     </div>

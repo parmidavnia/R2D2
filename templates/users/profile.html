@@ -2,80 +2,72 @@
 
 
 {% block title %}
-    <title>حساب کاربری {{ user.username }}</title>
+<title>حساب کاربری {{ user.username }}</title>
 {% endblock %}
 
 {% block styles %}
-    {% load staticfiles %}
-    <link rel="stylesheet" type="text/css" href="{% static 'accounts/css/style-profile.css' %}"/>
+{% load staticfiles %}
+<link rel="stylesheet" type="text/css" href="{% static 'accounts/css/style-profile.css' %}"/>
 {% endblock %}
 
 
 {% block content %}
-    <div class="ui container con-margin page-wrap">
-        <div class="ui grid container">
-            <!-- information -->
-            <div class="three wide column right aligned ">
-                {% if user.is_superuser %}
-                                    <h2 class="ui header">مدیر</h2>
-                {% else %}
-                                    <h2 class="ui header">{{ user.first_name}} {{ user.last_name }}</h2>
-                {% endif %}
-                <div class="ui small rounded image center aligned">
-                    <img src="/{{ user.avatar }}">
-                </div>
-                <div class="ui divider " ></div>
-                <div class="ui animated large relaxed link right aligned list">
-{#                    <a class="underline-link item right aligned"#}
-{#                       href="{% url 'accounts:edit_profile' %}">ویرایش مشخصات</a>#}
-                    {% if user.is_superuser %}
-                      <a class="underline-link item right aligned"
-                       href="{% url 'tagger:add_sentence' %}">اضافه کردن جمله</a>
-                        <a class="underline-link item right aligned"
-                       href="{% url 'tagger:get_all_sentences_history' 1 30 %}">تاریخچه تمام امتیازات</a>
-                        <a class="underline-link item right aligned"
-                       href="{% url 'tagger:get_all_sentences' 1 30 %}">وضعیت تمام جمله‌ها</a>
-                    {% else %}
-                        <div class="item right aligned">امتیاز: {{ user.score }}</div>
-                        <div class="item right aligned"> تاریخ ثبت نام: {{ user.registrationDate }}</div>
-                    {% endif %}
-                </div>
+
+
+<div class="ui container con-margin page-wrap">
+    <div class="ui grid container">
+        <!-- information -->
+        <div class="three wide column right aligned ">
+            {% if user.is_superuser %}
+            <h2 class="ui header">مدیر</h2>
+            {% else %}
+            <h2 class="ui header">{{ user.first_name}} {{ user.last_name }}</h2>
+            {% endif %}
+            <div class="ui small rounded image center aligned">
+                <img src="/{{ user.avatar }}">
             </div>
-            <!-- tab info -->
-            <div class="thirteen wide column right floating">
-                <div class="ui container">
-                    <div class="ui top attached tabular menu">
-                        {% if user.is_superuser %}
-                            <a id="sentence-history-header" class="active item" data-tab="first">
-                            <span class="tab-title">خلاصه امتیازات کاربران</span>
-                            </a>
-
-                            <a id="sentences-header" class="item" data-tab="second">
-                            <span class="tab-title">خلاصه وضعیت جمله‌ها</span>
-                            </a>
-
-                            <a id="scoring-sentence-history-header" class="item" data-tab="third">
-                            <span class="tab-title">خلاصه امتیازات کاربران2</span>
-                            </a>
-
-                            <a id="scoring-sentences-header" class="item" data-tab="fourth">
-                            <span class="tab-title">خلاصه وضعیت جمله‌ها2</span>
-                            </a>
-                        {% else %}
-                            <a id="rating-header" class="active item" data-tab="first">
-                            <span class="tab-title">تاریخچه امتیازها</span>
-                            </a>
-
-                            <a id="scoring-header" class="item" data-tab="first">
-                            <span class="tab-title">تاریخچه امتیازها2</span>
-                            </a>
-                        {% endif %}
-                    </div>
-                    <!-- first tab -->
+            <div class="ui divider "></div>
+            <div class="ui animated large relaxed link right aligned list">
+                {# <a class="underline-link item right aligned" #}
+                      {# href="{% url 'accounts:edit_profile' %}">ویرایش مشخصات</a>#}
                 {% if user.is_superuser %}
-                    <div id="sentence-history-tab" class="ui active bottom attached tab segment back-grey" data-tab="first">
-                        <table class="ui green table">
-                            {% if sentence_histories %}
+                <a class="underline-link item right aligned"
+                   href="{% url 'tagger:add_sentence' %}">اضافه کردن جمله</a>
+                <a class="underline-link item right aligned"
+                   href="{% url 'tagger:get_all_sentences_history' 1 30 %}">تاریخچه تمام امتیازات</a>
+                <a class="underline-link item right aligned"
+                   href="{% url 'tagger:get_all_sentences' 1 30 %}">وضعیت تمام جمله‌ها</a>
+                {% else %}
+                <div class="item right aligned">امتیاز: {{ user.score }}</div>
+                <div class="item right aligned"> تاریخ ثبت نام: {{ user.registrationDate }}</div>
+                {% endif %}
+            </div>
+        </div>
+        <!-- tab info -->
+        <div class="thirteen wide column right floating">
+            <div class="ui container">
+                <div class="tabset">
+                    {% if user.is_superuser %}
+                    <input type="radio" name="tabset" id="tab1" aria-controls="s1" checked data-icon="">
+                    <label for="tab1">خلاصه امتیازات کاربران</label>
+                    <input type="radio" name="tabset" id="tab2" aria-controls="s2">
+                    <label for="tab2">خلاصه وضعیت جمله‌ها</label>
+                    <input type="radio" name="tabset" id="tab3" aria-controls="s3">
+                    <label for="tab3">خلاصه امتیازات کاربران 2</label>
+                    <input type="radio" name="tabset" id="tab4" aria-controls="s4">
+                    <label for="tab4">خلاصه وضعیت جمله‌ها 2</label>
+                    {% else %}
+                    <input type="radio" name="tabset" id="tab5" aria-controls="s5" checked data-icon="">
+                    <label for="tab5">تاریخچه امتیازها</label>
+                    <input type="radio" name="tabset" id="tab6" aria-controls="s6">
+                    <label for="tab6">تاریخچه امتیازها 2</label>
+                    {% endif %}
+
+                    <div class="tab-panels">
+                        {% if user.is_superuser %}
+                        <section id="s1" class="tab-panel">
+                            <table class="ui green table">
+                                {% if sentence_histories %}
                                 <thead>
                                 <tr>
                                     <th class="two wide">شناسه جمله</th>
@@ -87,28 +79,28 @@
                                 </thead>
                                 <tbody>
                                 {% for history in sentence_histories %}
-                                    <tr>
-                                        <td>{{ history.sentenceId.id }}</td>
-                                        <td>{{ history.userId.id }}</td>
-                                        <td>{{ history.sentenceId.text }}</td>
-                                        <td>{{ history.polarity }}</td>
-                                        <td>{{ history.ip }}</td>
-                                    </tr>
+                                <tr>
+                                    <td>{{ history.sentenceId.id }}</td>
+                                    <td>{{ history.userId.id }}</td>
+                                    <td dir="ltr">{{ history.sentenceId.text }}</td>
+                                    <td>{{ history.polarity }}</td>
+                                    <td>{{ history.ip }}</td>
+                                </tr>
                                 {% endfor %}
 
                                 </tbody>
-                            {% else %}
+                                {% else %}
                                 <div class="ui center aligned container">
-                                تاکنون کسی امتیازی نداده است
+                                    تاکنون کسی امتیازی نداده است
                                 </div>
-                            {% endif %}
+                                {% endif %}
 
-                        </table>
+                            </table>
 
-                    </div>
-                    <div id="sentences-tab" class="ui bottom attached tab segment back-grey" data-tab="second">
-                        <table class="ui blue table">
-                            {% if sentences %}
+                        </section>
+                        <section id="s2" class="tab-panel">
+                            <table class="ui blue table">
+                                {% if sentences %}
                                 <thead>
                                 <tr>
                                     <th class="one wide">شناسه</th>
@@ -118,33 +110,33 @@
                                 </thead>
                                 <tbody>
                                 {% for sentence in sentences %}
-                                    <tr>
-                                        <td>{{ sentence.id }}</td>
-                                        <td>{{ sentence.text }}</td>
-                                        <td>{{ sentence.polarityAvg }}</td>
-                                    </tr>
+                                <tr>
+                                    <td>{{ sentence.id }}</td>
+                                    <td dir="ltr">{{ sentence.text }}</td>
+                                    <td>{{ sentence.polarityAvg }}</td>
+                                </tr>
                                 {% endfor %}
 
                                 </tbody>
-                            {% else %}
+                                {% else %}
                                 <div class="ui center aligned container">
-جمله‌ای وجود ندارد
+                                    جمله‌ای وجود ندارد
                                 </div>
-                            {% endif %}
+                                {% endif %}
 
-                        </table>
+                            </table>
 
-                    </div>
+                        </section>
 
-                    <div id="scoring-sentence-history-tab" class="ui bottom attached tab segment back-grey" data-tab="third">
-                        <table class="ui green table">
-                            {% if scoring_sentence_histories %}
+                        <section id="s3" class="tab-panel">
+                            <table class="ui green table to-left">
+                                {% if scoring_sentence_histories %}
                                 <thead>
                                 <tr>
                                     <th class="two wide">شناسه جمله</th>
                                     <th class="two wide">شناسه کاربر</th>
-                                    <th class="nine wide">جمله</th>
-                                    <th class="two wide">mr</th>
+                                    <th class="five wide">جمله ی معادل</th>
+                                    <th class="five wide">نمایش معنایی</th>
                                     <th class="two wide">informativeness</th>
                                     <th class="two wide">quality</th>
                                     <th class="two wide">naturalness</th>
@@ -153,36 +145,36 @@
                                 </thead>
                                 <tbody>
                                 {% for history in scoring_sentence_histories %}
-                                    <tr>
-                                        <td>{{ history.sentenceId.id }}</td>
-                                        <td>{{ history.userId.id }}</td>
-                                        <td>{{ history.sentenceId.text }}</td>
-                                        <td>{{ history.sentenceId.mr }}</td>
-                                        <td>{{ history.informativeness }}</td>
-                                        <td>{{ history.naturalness }}</td>
-                                        <td>{{ history.quality }}</td>
-                                        <td>{{ history.ip }}</td>
-                                    </tr>
+                                <tr>
+                                    <td>{{ history.sentenceId.id }}</td>
+                                    <td>{{ history.userId.id }}</td>
+                                    <td dir="ltr">{{ history.sentenceId.text }}</td>
+                                    <td dir="ltr">{{ history.sentenceId.mr }}</td>
+                                    <td>{{ history.informativeness }}</td>
+                                    <td>{{ history.naturalness }}</td>
+                                    <td>{{ history.quality }}</td>
+                                    <td>{{ history.ip }}</td>
+                                </tr>
                                 {% endfor %}
 
                                 </tbody>
-                            {% else %}
+                                {% else %}
                                 <div class="ui center aligned container">
-                                تاکنون کسی امتیازی نداده است
+                                    تاکنون کسی امتیازی نداده است
                                 </div>
-                            {% endif %}
+                                {% endif %}
 
-                        </table>
+                            </table>
 
-                    </div>
-                    <div id="scoring-sentences-tab" class="ui bottom attached tab segment back-grey" data-tab="fourth">
-                        <table class="ui blue table">
-                            {% if scoring_sentences %}
+                        </section>
+                        <section id="s4" class="tab-panel">
+                            <table class="ui blue table">
+                                {% if scoring_sentences %}
                                 <thead>
                                 <tr>
                                     <th class="one wide">شناسه</th>
-                                    <th class="ten wide">متن</th>
-                                    <th >mr</th>
+                                    <th class="ten wide">جمله ی معادل</th>
+                                    <th>نمایش معنایی</th>
                                     <th>average informativeness</th>
                                     <th>average naturalness</th>
                                     <th>average quality</th>
@@ -190,34 +182,34 @@
                                 </thead>
                                 <tbody>
                                 {% for sentence in scoring_sentences %}
-                                    <tr>
-                                        <td>{{ sentence.id }}</td>
-                                        <td>{{ sentence.text }}</td>
-                                        <td>{{ sentence.mr }}</td>
-                                        <td>{{ sentence.informativeness_avg }}</td>
-                                        <td>{{ sentence.naturalness_avg }}</td>
-                                        <td>{{ sentence.quality_avg }}</td>
+                                <tr>
+                                    <td>{{ sentence.id }}</td>
+                                    <td dir="ltr">{{ sentence.text }}</td>
+                                    <td dir="ltr">{{ sentence.mr }}</td>
+                                    <td>{{ sentence.informativeness_avg }}</td>
+                                    <td>{{ sentence.naturalness_avg }}</td>
+                                    <td>{{ sentence.quality_avg }}</td>
 
-                                    </tr>
+                                </tr>
                                 {% endfor %}
 
                                 </tbody>
-                            {% else %}
+                                {% else %}
                                 <div class="ui center aligned container">
-جمله‌ای وجود ندارد
+                                    جمله‌ای وجود ندارد
                                 </div>
-                            {% endif %}
+                                {% endif %}
 
-                        </table>
+                            </table>
 
-                    </div>
-
-                {% else %}
-                    <div id="rating-tab" class="ui active bottom attached tab segment back-grey" data-tab="first">
-                        <table class="ui red table">
-                            {% if ratings %}
+                        </section>
+                        {% else %}
+                        <section id="s5" class="tab-panel">
+                            <table class="ui red table">
+                                {% if ratings %}
                                 <thead>
-                                <tr><th class="one wide">#</th>
+                                <tr>
+                                    <th class="one wide">#</th>
                                     <th class="nine wide">جمله</th>
                                     <th class="two wide">قطبیت</th>
                                     <th>تاریخ</th>
@@ -225,32 +217,32 @@
                                 </thead>
                                 <tbody>
                                 {% for rate in ratings %}
-                                    <tr>
-                                        <td>{{ forloop.counter }}</td>
-                                        <td>{{ rate.sentenceId.text }}</td>
-                                        <td>{{ rate.polarity }}</td>
-                                        <td>{{ rate.date }}</td>
-                                    </tr>
+                                <tr>
+                                    <td>{{ forloop.counter }}</td>
+                                    <td dir="ltr">{{ rate.sentenceId.text }}</td>
+                                    <td>{{ rate.polarity }}</td>
+                                    <td>{{ rate.date }}</td>
+                                </tr>
                                 {% endfor %}
 
                                 </tbody>
-                            {% else %}
+                                {% else %}
                                 <div class="ui center aligned container">
                                     تاکنون امتیازی ثبت نکرده‌اید.
                                 </div>
-                            {% endif %}
+                                {% endif %}
 
-                        </table>
+                            </table>
 
-                    </div>
-
-                    <div id="scoring-tab" class="ui bottom attached tab segment back-grey" data-tab="second">
-                        <table class="ui red table">
-                            {% if scores %}
+                        </section>
+                        <section id="s6" class="tab-panel">
+                            <table class="ui red table">
+                                {% if scores %}
                                 <thead>
-                                <tr><th class="one wide">#</th>
-                                    <th class="four wide">جمله</th>
-                                    <th class="four wide">mr</th>
+                                <tr>
+                                    <th class="one wide">#</th>
+                                    <th class="four wide">جمله ی معادل</th>
+                                    <th class="four wide">نمایش معنایی</th>
                                     <th class="one wide">informativeness</th>
                                     <th class="one wide">naturalness</th>
                                     <th class="one wide">quality</th>
@@ -259,104 +251,44 @@
                                 </thead>
                                 <tbody>
                                 {% for score in scores %}
-                                    <tr>
-                                        <td>{{ forloop.counter }}</td>
-                                        <td>{{ score.sentenceId.text }}</td>
-                                        <td>{{ score.sentenceId.mr}}</td>
-                                        <td>{{ score.informativeness }}</td>
-                                        <td>{{ score.naturalness }}</td>
-                                        <td>{{ score.quality}}</td>
-                                        <td>{{ score.date }}</td>
-                                    </tr>
+                                <tr>
+                                    <td>{{ forloop.counter }}</td>
+                                    <td dir="ltr">{{ score.sentenceId.text }}</td>
+                                    <td dir="ltr">{{ score.sentenceId.mr}}</td>
+                                    <td>{{ score.informativeness }}</td>
+                                    <td>{{ score.naturalness }}</td>
+                                    <td>{{ score.quality}}</td>
+                                    <td>{{ score.date }}</td>
+                                </tr>
                                 {% endfor %}
 
                                 </tbody>
-                            {% else %}
+                                {% else %}
                                 <div class="ui center aligned container">
                                     تاکنون امتیازی ثبت نکرده‌اید.
                                 </div>
-                            {% endif %}
+                                {% endif %}
 
-                        </table>
+                            </table>
+
+                        </section>
+                        {% endif %}
 
                     </div>
-                {% endif %}
+
                 </div>
+
+
             </div>
         </div>
     </div>
+</div>
 
 {% endblock %}
 
 
 {% block scripts %}
-    <script type="text/javascript">
-    let active_tab  = -1;
-    function hide_all_tabs() {
-        $('#sentence-history-header').removeClass('active', 'back-grey');
-        $('#sentence-history-tab').removeClass('active');
 
-        $('#sentences-header').removeClass('active', 'back-grey');
-        $('#sentences-tab').removeClass('active');
-
-        $('#scoring-sentence-history-header').removeClass('active', 'back-grey');
-        $('#scoring-sentence-history-tab').removeClass('active');
-
-        $('#scoring-sentences-header').removeClass('active', 'back-grey');
-        $('#scoring-sentences-tab').removeClass('active');
-
-        $('#rating-header').removeClass('active', 'back-grey');
-        $('#rating-tab').removeClass('active');
-
-        $('#scoring-header').removeClass('active', 'back-grey');
-        $('#scoring-tab').removeClass('active');
-
-    }
-    $('#sentence-history-header').click(function () {
-        console.log("tagger sentence-history");
-        hide_all_tabs();
-        $('#sentence-history-header').addClass('active', 'back-grey');
-        $('#sentence-history-tab').addClass('active');
-    });
-
-    $('#sentences-header').click(function () {
-        console.log("tagger sentences");
-        hide_all_tabs();
-        $('#sentences-header').addClass('active', 'back-grey');
-        $('#sentences-tab').addClass('active');
-    });
-
-    $('#scoring-sentence-history-header').click(function () {
-        console.log("scoring sentence-history");
-        hide_all_tabs();
-        $('#scoring-sentence-history-header').addClass('active', 'back-grey');
-        $('#scoring-sentence-history-tab').addClass('active');
-    });
-
-    $('#scoring-sentences-header').click(function () {
-        console.log("scoring sentences");
-        hide_all_tabs();
-        $('#scoring-sentences-header').addClass('active', 'back-grey');
-        $('#scoring-sentences-tab').addClass('active');
-    });
-
-    $('#rating-header').click(function () {
-        console.log("tagger rating");
-        hide_all_tabs();
-        $('#rating-header').addClass('active', 'back-grey');
-        $('#rating-tab').addClass('active');
-    });
-
-    $('#scoring-header').click(function () {
-        console.log("scoring score");
-        hide_all_tabs();
-        $('#scoring-header').addClass('active', 'back-grey');
-        $('#scoring-tab').addClass('active');
-    });
-
-
-    </script>
-    <script type="text/javascript" src="{% static 'accounts/js/profiles.js' %}"></script>
 {% endblock %}
 
 
