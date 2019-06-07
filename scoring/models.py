@@ -5,7 +5,9 @@ from user.models import User
 
 class ScoringDataset(models.Model):
     name = models.CharField(null=False, max_length=128)
-
+    informativeness_avg = models.FloatField(default=0, null=False)
+    naturalness_avg = models.FloatField(default=0, null=False)
+    quality_avg = models.FloatField(default=0, null=False)
     def __str__(self):
         return str(self.name)
 

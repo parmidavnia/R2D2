@@ -143,6 +143,11 @@ def score_sentence(request, sentenceId):
         s.naturalness_avg = naturalness_avg
         s.quality_avg = quality_avg
         s.save()
+        dataset = s.dataset
+        dataset.informativeness_avg = 0.8*dataset.informativeness_avg + 0.2*inform
+        dataset.naturalness_avg = 0.8 * dataset.naturalness_avg + 0.2 * natural
+        dataset.quality_avg = 0.8 * dataset.quality_avg + 0.2 * quality
+        dataset.save()
 
         sentence_history = ScoringSentenceHistory(userId=u, sentenceId=s, informativeness=inform,
                                            naturalness=natural, quality=quality, ip=ip)
